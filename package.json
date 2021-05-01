@@ -11,9 +11,7 @@
     "COS 426",
     "ivy league",
     "psychedelic",
-    "fractals",
-    "...",
-    "this last entry CANNOT have a comma after it ->"
+    "fractals"
   ],
   "scripts": {
     "start": "webpack-dev-server --mode development --output-public-path \"\"",
