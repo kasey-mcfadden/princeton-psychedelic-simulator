@@ -20,34 +20,7 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
-  // If toggled, update sphere position for interactive fun
-  // if (SceneParams.movingSphere && Scene.sphere.mesh.visible) {
-  //   Sim.updateSpherePosition(Scene.sphere);
-  // }
-  // console.log(triangle.getRandomPoint());
-
-  // // Apply all relevant forces to the cloth's particles
-  // cloth.applyForces();
-
-  // // For each particle, perform Verlet integration to compute its new position
-  // cloth.update(SceneParams.TIMESTEP);
-
-  // // Handle collisions with other objects in the scene
-  // cloth.handleCollisions();
-
-  // // Handle self-intersections
-  // if (SceneParams.avoidClothSelfIntersection) {
-  //   cloth.handleSelfIntersections();
-  // }
-
-  // Apply cloth constraints
-  // cloth.enforceConstraints();
-  // triangle.fractal();
-  // Pin constraints
-  // Sim.enforcePinConstraints();
-
   Sim.fractal();
-
 }
 
 
@@ -60,7 +33,7 @@ Sim.fractal = function() {
       prev_point = point;
       return;
     }
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < SceneParams.speed; i++) {
       let index = Math.round(Math.random() * 2);
       let v = triangle.geometry.vertices[index].clone();
       // draw the next point some fraction r of the distance between it and a polygon vertex picked at random

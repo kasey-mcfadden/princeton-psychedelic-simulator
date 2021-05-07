@@ -74,7 +74,6 @@ function Triangle(sideLength) {
     this.geometry = geometry;
     var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
     this.mesh = mesh;
-    // this.material = 
 
 //   initParameterizedPosition(x, y, this.position);
 //   initParameterizedPosition(x, y, this.previous);
@@ -107,11 +106,9 @@ Triangle.prototype.getRandomPoint = function() {
 
     let vec1 = new THREE.Vector3().subVectors(v1, v0);
     let vec2 = new THREE.Vector3().subVectors(v2, v0);
-
     vec1.multiplyScalar(rand[0]);
-    // vec1.y += this.height;
     vec2.multiplyScalar(rand[1]);
-    // vec2.y += this.height;
+    
     let point = new THREE.Vector3().addVectors(vec1, vec2);
     point.y += this.height / 2;
 

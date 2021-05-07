@@ -54,6 +54,12 @@ GuiConfig.defs = [
     range: [0, 1, 0.1],
     onChange: Sim.restartTriangle,
   },
+  {
+    name: "Speed",
+    param: "speed",
+    range: [1000, 10000, 500],
+    onChange: Sim.restartTriangle,
+  },
   
   /***************************************************
    *             Scene folder
