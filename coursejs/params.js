@@ -40,7 +40,8 @@ class Params {
 
     this.sideLength = 400;
     this.r = 0.5;
-    this.speed = 1500;
+    this.speed = 1000;
+    this.dotSize = 1;
 
     // ====================================================================
     //            Properties of forces and interactions

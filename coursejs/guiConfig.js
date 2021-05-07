@@ -57,7 +57,13 @@ GuiConfig.defs = [
   {
     name: "Speed",
     param: "speed",
-    range: [1000, 10000, 500],
+    range: [500, 10000, 500],
+    onChange: Sim.restartTriangle,
+  },
+  {
+    name: "Dot Size",
+    param: "dotSize",
+    range: [1, 10, 1],
     onChange: Sim.restartTriangle,
   },
   

@@ -42,7 +42,7 @@ Sim.fractal = function() {
   
       var dotGeometry = new THREE.Geometry();
       dotGeometry.vertices.push(next);
-      var dotMaterial = new THREE.PointsMaterial( { size: 1, sizeAttenuation: false } );
+      var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false } );
       var dot = new THREE.Points( dotGeometry, dotMaterial );
       Scene.scene.add(dot);
       prev_point = next;
