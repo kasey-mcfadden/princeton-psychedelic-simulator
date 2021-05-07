@@ -81,74 +81,6 @@ Sim.fractal = function() {
 };
 
 
-/****** Helper functions for the simulation ******/
-/****** You do not need to know how these work ******/
-
-Sim.randomCoord = function() {
-
-  let randX = Math.round(Math.random() * cloth.w);
-  let randY = Math.round(Math.random() * cloth.h);
-  return new THREE.Vector2(randX, randY);
-}
-
-// update sim
-Sim.pinCloth = function(choice) {
-  // if (choice == "Random" && randomPoints.length == 0) {
-  //   let nPoints = Math.round(Math.random() * 10) + 1;
-  //   randomPoints = [];
-  //   for (r = 0; r < nPoints; r++) {
-  //     randomPoints.push(Sim.randomCoord());
-  //   }
-  // } else {
-  //   randomPoints = [];
-  // }
-}
-
-Sim.enforcePinConstraints = function() {
-  // let particles = cloth.particles;
-  // const w = cloth.w;
-  // const h = cloth.h;
-  // // Special case for wave: keep one edge stationary while the opposing one oscillates
-  // if (SceneParams.wave) {
-  //   for (let i = 0; i <= w; i++) {
-  //     particles[cloth.index(h, i)].lockToOriginal();
-  //     particles[cloth.index(0, i)].lock();
-  //   }
-  //   return;
-  // }
-
-  // if (SceneParams.pinned === "Corners") {
-  //   // could also do particles[blah].lock() which will lock particles to
-  //   // wherever they are, not to their original position
-  //   particles[cloth.index(0, 0)].lockToOriginal();
-  //   particles[cloth.index(w, 0)].lockToOriginal();
-  //   particles[cloth.index(0, h)].lockToOriginal();
-  //   particles[cloth.index(w, h)].lockToOriginal();
-  // } else if (SceneParams.pinned === "OneEdge") {
-  //   for (let x = 0; x <= w; x++) {
-  //     particles[cloth.index(x, 0)].lockToOriginal();
-  //   }
-  // } else if (SceneParams.pinned === "TwoEdges") {
-  //   for (let y = 0; y <= h; y++) {
-  //     particles[cloth.index(0, y)].lockToOriginal();
-  //     particles[cloth.index(w, y)].lockToOriginal();
-  //   }
-  // } else if (SceneParams.pinned === "FourEdges") {
-  //   for (let i = 0; i <= w; i++) {
-  //     particles[cloth.index(0, i)].lockToOriginal();
-  //     particles[cloth.index(w, i)].lockToOriginal();
-  //     particles[cloth.index(i, 0)].lockToOriginal();
-  //     particles[cloth.index(i, h)].lockToOriginal();
-  //   }
-  // } else if (SceneParams.pinned === "Random") {
-  //   for (let pt of randomPoints) {
-  //     particles[cloth.index(pt.x, pt.y)].lockToOriginal();
-  //   }
-  // } else if (SceneParams.pinned === "None") {
-  //   return;
-  // }
-}
-
 // restartCloth() is used when we change a fundamental cloth property with a slider
 // and therefore need to recreate the cloth object from scratch
 Sim.restartCloth = function() {
@@ -179,19 +111,23 @@ Sim.restartCloth = function() {
 
 Sim.restartTriangle = function() {
   // remove old triangle outline
-  Scene.scene.remove(Scene.triangle.mesh);
+  // Scene.scene.remove(Scene.triangle.mesh);
+
+  while(Scene.scene.children.length > 0){ 
+    Scene.scene.remove(Scene.scene.children[0]); 
+}
 
   // recreate the triangle data structure
   let sideLength = SceneParams.sideLength;
   triangle = new Triangle(sideLength);
 
   Scene.triangle.geometry = triangle.geometry;
-  Scene.triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
+  // Scene.triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
   // update the scene geometry
   // triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
   // Scene.triangle.mesh.position.set(0, 0, 0);
   // Scene.triangle.mesh.castShadow = true;
-  Scene.scene.add(Scene.triangle.mesh); // adds the cloth to the scene
+  // Scene.scene.add(Scene.triangle.mesh); // adds the cloth to the scene
 }
 
 // Update the scene to reflect changes made in the GUI.

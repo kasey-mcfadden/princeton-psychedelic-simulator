@@ -156,14 +156,14 @@ Scene.buildTriangle = function() {
 
   // triangle.vertices = geometry.vertices;
 
-  geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
-  var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
+  // geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
+  // var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
   
   triangle.sideLength = sideLength;
   triangle.geometry = geometry;
-  triangle.mesh = mesh;
+  // triangle.mesh = mesh;
 
-  Scene.scene.add(triangle.mesh);
+  // Scene.scene.add(triangle.mesh);
 
   // triangle.outline = new THREE.Mesh(
   //   geometry,
