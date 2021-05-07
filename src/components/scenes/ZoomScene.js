@@ -18,7 +18,7 @@ class ZoomScene extends Scene {
         };
 
         // Set background to black
-        this.background = new Color(0x000000);
+        this.background = new Color("rgb(0, 0, 0)");
         let geometry = new THREE.BufferGeometry();
 
         // attributes
