@@ -86,31 +86,36 @@ function Triangle(sideLength) {
 };
 
 function random() {
-    let sum_one = false;
+    let sum_under_one = false;
     let a;
     let b;
-    while(!sum_one) {
+    while(!sum_under_one) {
         a = Math.random();
         b = Math.random();
-        sum_one = (a + b >= 1);
+        sum_under_one = (a + b < 1);
     }
     return [a, b];
 }
 
 // reference: https://mathworld.wolfram.com/TrianglePointPicking.html
-function getRandomPoint() {
+Triangle.prototype.getRandomPoint = function() {
     let v0 = triangle.geometry.vertices[0];
     let v1 = triangle.geometry.vertices[1];
     let v2 = triangle.geometry.vertices[2];
 
     let rand = random();
 
-    let vec1 = new THREE.Vector3().subVectors(v0, v1);
-    let vec2 = new THREE.Vector3().subVectors(v0, v2);
+    let vec1 = new THREE.Vector3().subVectors(v1, v0);
+    let vec2 = new THREE.Vector3().subVectors(v2, v0);
 
     vec1.multiplyScalar(rand[0]);
+    // vec1.y += this.height;
     vec2.multiplyScalar(rand[1]);
-    return vec1.add(vec2);
+    // vec2.y += this.height;
+    let point = new THREE.Vector3().addVectors(vec1, vec2);
+    point.y += this.height / 2;
+
+    return point;
 };
 
 // Triangle.prototype.fractal = function() {

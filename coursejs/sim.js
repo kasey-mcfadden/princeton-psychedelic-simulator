@@ -2,6 +2,7 @@ var Sim = Sim || {};
 
 var randomPoints;
 var triangle;
+var prev_point;
 
 Sim.init = function() {
   // Points by which cloth will be suspended in "Random" pinning mode.
@@ -44,7 +45,41 @@ Sim.simulate = function() {
   // triangle.fractal();
   // Pin constraints
   // Sim.enforcePinConstraints();
+
+  Sim.fractal();
+
 }
+
+
+Sim.fractal = function() {
+    // SceneParams.number of points or something
+    // for (let i = 0; i < 1000; i++) {
+    // pick a point at random
+    let point = triangle.getRandomPoint();
+    if (prev_point === undefined) {
+      prev_point = point;
+      return;
+    }
+    for (let i = 0; i < 500; i++) {
+      let index = Math.round(Math.random() * 2);
+      let v = triangle.geometry.vertices[index].clone();
+      // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
+      let next = new THREE.Vector3().subVectors(v, prev_point);
+      next.multiplyScalar(SceneParams.r);
+  
+      var dotGeometry = new THREE.Geometry();
+      dotGeometry.vertices.push(next);
+      var dotMaterial = new THREE.PointsMaterial( { size: 1, sizeAttenuation: false } );
+      var dot = new THREE.Points( dotGeometry, dotMaterial );
+      Scene.scene.add(dot);
+      prev_point = next;
+    }
+    
+        // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
+        // (throw out the first few points)
+    // }
+};
+
 
 /****** Helper functions for the simulation ******/
 /****** You do not need to know how these work ******/

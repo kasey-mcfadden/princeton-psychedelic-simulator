@@ -48,6 +48,12 @@ GuiConfig.defs = [
     range: [100, 800, 20],
     onChange: Sim.restartTriangle,
   },
+  {
+    name: "R Parameter",
+    param: "r",
+    range: [0, 1, 0.1],
+    onChange: Sim.restartTriangle,
+  },
   
   /***************************************************
    *             Scene folder

@@ -61,7 +61,7 @@ Renderer.animate = function() {
   // Using realtime clocks leads to undesirable effects when simulation is
   // paused or slowed down
   // time = Date.now();
-  time += 30; // equivalent to ~33 fps
+  time += 10000; // equivalent to ~33 fps
 
   Sim.simulate(); // run physics simulation to create new positions of cloth
   Renderer.render(); // update position of cloth, compute normals, rotate camera, render the scene
