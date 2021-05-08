@@ -2,23 +2,23 @@
 function Ngon(nverts, sideLength) {
     this.nverts = nverts;
     this.sideLength = sideLength;
-    this.height = sideLength * (Math.sqrt(3)/2);
 
-    let angle = 360.0 / nverts;
-    var geometry = new THREE.Geometry();
-    let first;
-    for (let i = 0; i < nverts; i++) {
-        let x = sideLength / 2 * Math.sin(i * angle);
-        let y = sideLength / 2 * Math.cos(i * angle);
-        let v = new THREE.Vector3(x, y, 0);
-        if (i == 0) {
-            first = v;
-        }
-        geometry.vertices.push(v);
+    let circumradius = sideLength / (2 * Math.sin(Math.PI / nverts));
+    let inradius = sideLength / (2 * Math.tan(Math.PI / nverts));
+    if (nverts % 2 == 0) { // even verts
+        this.height = 2 * inradius;
+    } else { // odd verts
+        this.height = inradius + circumradius;
     }
 
-    this.boundingBox = computeBoundingBox(geometry.vertices);
-
+    let angle = 2 * Math.PI / nverts;
+    var geometry = new THREE.Geometry();
+    for (let i = 0; i < nverts; i++) {
+        let x = this.height / 2 * Math.sin(i * angle);
+        let y = this.height / 2 * Math.cos(i * angle);
+        let v = new THREE.Vector3(x, y, 0);
+        geometry.vertices.push(v);
+    }
 
     this.geometry = geometry;
 

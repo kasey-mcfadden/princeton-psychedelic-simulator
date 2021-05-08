@@ -174,41 +174,33 @@ Scene.buildTriangle = function() {
 }
 
 Scene.buildNgon = function() {
-  // Scene.scene.add(cloth.mesh); // add cloth to the scene
-  // return cloth;
+
   let ngon = {};
   let sideLength = SceneParams.sideLength;
-  let height = sideLength * (Math.sqrt(3)/2);
   let nverts = SceneParams.nverts;
-  let angle = 360.0 / nverts;
+  let circumradius = sideLength / (2 * Math.sin(Math.PI / nverts));
+  let inradius = sideLength / (2 * Math.tan(Math.PI / nverts));
+  let height;
 
-  // let v1 = new THREE.Vector3(0, height / 2, 0);
-  // let v2 = new THREE.Vector3(-sideLength / 2, -height / 2, 0);
-  // let v3 = new THREE.Vector3(sideLength / 2, -height / 2, 0);
-  // var tri = new THREE.Triangle(v1, v2, v3);
-
+  if (nverts % 2 == 0) { // even
+    height = 2 * inradius;
+  } else {
+    height = inradius + circumradius;
+  }
+  // let height = sideLength * (Math.sqrt(3)/2);
+  let angle = 2 * Math.PI / nverts;
   var geometry = new THREE.Geometry();
-  // let first;
   for (let i = 0; i < nverts; i++) {
-    let x = sideLength / 2 * Math.sin(i * angle);
-    let y = sideLength / 2 * Math.cos(i * angle);
+    let x = height / 2 * Math.sin(i * angle);
+    let y = height / 2 * Math.cos(i * angle);
     let v = new THREE.Vector3(x, y, 0);
     geometry.vertices.push(v);
   }
 
   ngon.geometry = geometry;
   ngon.sideLength = sideLength;
+  ngon.height = height;
 
-  // triangle.mesh = mesh;
-
-  // Scene.scene.add(triangle.mesh);
-
-  // triangle.outline = new THREE.Mesh(
-  //   geometry,
-  //   new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-  // );
-  // // scene.add(line);
-  // Scene.scene.add(triangle.outline);
   return ngon;
 }
 
