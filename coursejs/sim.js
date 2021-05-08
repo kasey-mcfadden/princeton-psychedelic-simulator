@@ -74,7 +74,7 @@ Sim.fractal = function() {
     }
     for (let i = 0; i < 100; i++) {
       if (backwards == false) { // fade in
-        let index = Math.round(Math.random() * 2);
+        let index = Math.round(Math.random() * (SceneParams.nverts - 1));
         let v = ngon.geometry.vertices[index].clone();
         // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
         let next = new THREE.Vector3().subVectors(v, prev_point);
@@ -92,6 +92,15 @@ Sim.fractal = function() {
       
     }
     
+      // for testing: place a dot at each vertex
+    for (let v of ngon.geometry.vertices) {
+      var dotGeometry = new THREE.Geometry();
+      dotGeometry.vertices.push(v);
+      var dotMaterial = new THREE.PointsMaterial( { size: 10, sizeAttenuation: false } );
+      var dot = new THREE.Points( dotGeometry, dotMaterial );
+      Scene.scene.add(dot);
+    }
+
         // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
         // (throw out the first few points)
 };

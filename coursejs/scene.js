@@ -190,19 +190,10 @@ Scene.buildNgon = function() {
   var geometry = new THREE.Geometry();
   // let first;
   for (let i = 0; i < nverts; i++) {
-    let x = sideLength * Math.sin(i * angle);
-    let y = sideLength * Math.cos(i * angle);
+    let x = sideLength / 2 * Math.sin(i * angle);
+    let y = sideLength / 2 * Math.cos(i * angle);
     let v = new THREE.Vector3(x, y, 0);
     geometry.vertices.push(v);
-  }
-
-  // for testing: place a dot at each vertex
-  for (let v of geometry.vertices) {
-    var dotGeometry = new THREE.Geometry();
-    dotGeometry.vertices.push(v);
-    var dotMaterial = new THREE.PointsMaterial( { size: 10, sizeAttenuation: false } );
-    var dot = new THREE.Points( dotGeometry, dotMaterial );
-    Scene.scene.add(dot);
   }
 
   ngon.geometry = geometry;
