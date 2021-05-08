@@ -40,6 +40,7 @@ class Params {
 
     this.sideLength = 400;
     this.r = 0.5;
+    this.nverts = 3;
 
     // ====================================================================
     //            Properties of forces and interactions
@@ -162,7 +163,7 @@ Params.restoreDefaults = function() {
   Gui.refreshValues();
   Scene.update();
   Sim.update();
-  Sim.restartTriangle();
+  Sim.restartNgon();
 }
 
 // https://html-online.com/articles/get-url-parameters-javascript/

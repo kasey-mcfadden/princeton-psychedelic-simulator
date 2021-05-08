@@ -46,13 +46,19 @@ GuiConfig.defs = [
     name: "Side Length",
     param: "sideLength",
     range: [100, 800, 20],
-    onChange: Sim.restartTriangle,
+    onChange: Sim.restartNgon,
   },
   {
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
-    onChange: Sim.restartTriangle,
+    onChange: Sim.restartNgon,
+  },
+  {
+    name: "Number vertices",
+    param: "nverts",
+    range: [3, 10, 1],
+    onChange: Sim.restartNgon,
   },
   
   /***************************************************
@@ -73,7 +79,7 @@ GuiConfig.defs = [
   //  {
   //    name: "Restart simulation",
   //    param: "restartCloth",
-  //    onClick: Sim.restartTriangle,
+  //    onClick: Sim.restartNgon,
   //  },
    {
      name: "Restore defaults",

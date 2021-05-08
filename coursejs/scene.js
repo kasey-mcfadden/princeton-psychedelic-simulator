@@ -28,7 +28,7 @@ Scene.init = function() {
   // Now fill the scene with objects
   // Scene.fractal = Scene.buildFractal();
   Scene.triangle = Scene.buildTriangle();
-
+  Scene.ngon = Scene.buildNgon();
   Scene.update();
 }
 
@@ -147,7 +147,6 @@ Scene.buildTriangle = function() {
   let v2 = new THREE.Vector3(-sideLength / 2, -height / 2, 0);
   let v3 = new THREE.Vector3(sideLength / 2, -height / 2, 0);
   var tri = new THREE.Triangle(v1, v2, v3);
-  var normal = tri.getNormal(new THREE.Vector3());
 
   var geometry = new THREE.Geometry();
   geometry.vertices.push(tri.a);
@@ -174,35 +173,52 @@ Scene.buildTriangle = function() {
   return triangle;
 }
 
+Scene.buildNgon = function() {
+  // Scene.scene.add(cloth.mesh); // add cloth to the scene
+  // return cloth;
+  let ngon = {};
+  let sideLength = SceneParams.sideLength;
+  let height = sideLength * (Math.sqrt(3)/2);
+  let nverts = SceneParams.nverts;
+  let angle = 360.0 / nverts;
 
-Scene.createConstraintLine = function(constraint) {
-  if (!Scene.constraintMaterials) {
-    let mats = [];
-    mats.push(new THREE.LineBasicMaterial({color: 0xff0000}));
-    mats.push(new THREE.LineBasicMaterial({color: 0x00ff00}));
-    mats.push(new THREE.LineBasicMaterial({color: 0x0000ff}));
-    mats.push(new THREE.LineBasicMaterial({color: 0x000000}));
-    Scene.constraintMaterials = mats;
+  // let v1 = new THREE.Vector3(0, height / 2, 0);
+  // let v2 = new THREE.Vector3(-sideLength / 2, -height / 2, 0);
+  // let v3 = new THREE.Vector3(sideLength / 2, -height / 2, 0);
+  // var tri = new THREE.Triangle(v1, v2, v3);
+
+  var geometry = new THREE.Geometry();
+  // let first;
+  for (let i = 0; i < nverts; i++) {
+    let x = sideLength * Math.sin(i * angle);
+    let y = sideLength * Math.cos(i * angle);
+    let v = new THREE.Vector3(x, y, 0);
+    geometry.vertices.push(v);
   }
 
-  let line = {};
-  let points = [constraint.p1.position, constraint.p2.position];
-  line.geometry = new THREE.BufferGeometry().setFromPoints( points );
+  // for testing: place a dot at each vertex
+  for (let v of geometry.vertices) {
+    var dotGeometry = new THREE.Geometry();
+    dotGeometry.vertices.push(v);
+    var dotMaterial = new THREE.PointsMaterial( { size: 10, sizeAttenuation: false } );
+    var dot = new THREE.Points( dotGeometry, dotMaterial );
+    Scene.scene.add(dot);
+  }
 
-  // figure out materials
-  let mats = Scene.constraintMaterials;
-  let mat = mats[3]; // black
-  let d = constraint.distance;
-  let rest = SceneParams.restDistance;
-  let restB = rest * SceneParams.restDistanceB;
-  let restS = rest * SceneParams.restDistanceS;
-  if      (d == rest)   mat = mats[0];
-  else if (d == restS)  mat = mats[1];
-  else if (d == restB)  mat = mats[2];
+  ngon.geometry = geometry;
+  ngon.sideLength = sideLength;
 
-  line.mesh = new THREE.Line(line.geometry, mat);
-  // Scene.scene.add(line.mesh);
-  return line;
+  // triangle.mesh = mesh;
+
+  // Scene.scene.add(triangle.mesh);
+
+  // triangle.outline = new THREE.Mesh(
+  //   geometry,
+  //   new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  // );
+  // // scene.add(line);
+  // Scene.scene.add(triangle.outline);
+  return ngon;
 }
 
 Scene.update = function() {
