@@ -44,6 +44,32 @@ Triangle.prototype.getRandomPoint = function() {
     return point;
 };
 
+
+// reference: https://mathworld.wolfram.com/TrianglePointPicking.html
+Triangle.prototype.spin = function() {
+  let v0 = triangle.geometry.vertices[0].clone();
+  let v1 = triangle.geometry.vertices[1].clone();
+  let v2 = triangle.geometry.vertices[2].clone();
+
+  let SCALE = 1.05;
+
+  // v0.multiplyScalar(SCALE);
+  // v1.multiplyScalar(SCALE);
+  // v2.multiplyScalar(SCALE);
+
+  let v01 = new THREE.Vector3().subVectors(v1, v0).multiplyScalar(SCALE);
+  let v12 = new THREE.Vector3().subVectors(v2, v1).multiplyScalar(SCALE);
+  let v20 = new THREE.Vector3().subVectors(v0, v2).multiplyScalar(SCALE);
+
+  v0.add(v01);
+  v1.add(v12);
+  v2.add(v20);
+
+  triangle.geometry.vertices[0] = v0;
+  triangle.geometry.vertices[1] = v1;
+  triangle.geometry.vertices[2] = v2;
+};
+
 // Triangle.prototype.fractal = function() {
 //     // SceneParams.number of points or something
 //     for (let i = 0; i < 1000; i++) {

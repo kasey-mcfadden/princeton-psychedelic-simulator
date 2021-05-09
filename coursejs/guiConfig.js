@@ -85,6 +85,12 @@ GuiConfig.defs = [
     param: "restrict",
     onChange: Sim.restartNgon,
   },
+  {
+    name: "Speed",
+    param: "speed",
+    range: [250, 1500, 250],
+    onChange: Sim.restartTriangle,
+  },
 
     /***************************************************
    *             Simulation Properties folder
