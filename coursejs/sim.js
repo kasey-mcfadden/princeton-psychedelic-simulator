@@ -2,14 +2,22 @@ var Sim = Sim || {};
 
 var randomPoints;
 var triangle;
+var ngon;
 var prev_point;
+var backwards = false;
+var first = true;
+var prev_vert_index;
+const MAX_ITERATIONS = 10000;
+const ppi = 100; // points per iteration
+
 
 Sim.init = function() {
   // Points by which cloth will be suspended in "Random" pinning mode.
   randomPoints = [];
 
-  // The cloth object being simulated.
-  triangle = new Triangle(SceneParams.sideLength);
+  // triangle = new Triangle(SceneParams.sideLength);
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength);
+  // ngon = new Ngon(SceneParams.sideLength, SceneParams.nverts);
   // cloth = new Cloth(SceneParams.xSegs, SceneParams.ySegs, SceneParams.fabricLength);
 
   Sim.update();
@@ -20,7 +28,15 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
-  Sim.fractal();
+  if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
+    backwards = true;
+  }
+  if (Scene.scene.children.length == 0) {
+    backwards = false;
+  }
+  if (!SceneParams.pause && Scene.scene.children.length < MAX_ITERATIONS + 2 * ppi) {
+    Sim.chaos();
+  }
 }
 
 
@@ -50,50 +66,73 @@ Sim.fractal = function() {
 
   // spin
   triangle.spin();
+}
+
+Sim.chaos = function() {
+    // SceneParams.number of points or something
+    // pick a point at random
+    // let point = triangle.getRandomPoint();
+
+    for (let i = 0; i < ppi; i++) {
+
+      if (backwards == false) { // fade in
+        let point = ngon.getRandomPoint();
+        let index = ngon.getRandomVertexIndex(SceneParams.restrict, prev_vert_index);
+
+        if (prev_point === undefined || prev_vert_index === undefined) {
+          prev_point = point;
+          prev_vert_index = index;
+          return;
+        }
+
+        let v = ngon.vertices[index].clone();
+  
+        // get the next point (some fraction r of the distance between it and a polygon vertex picked at random)
+        let next = new THREE.Vector3().subVectors(v, prev_point);
+        next.multiplyScalar(SceneParams.r);
+    
+        var dotGeometry = new THREE.Geometry();
+        dotGeometry.vertices.push(next);
+        var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false } );
+        var dot = new THREE.Points( dotGeometry, dotMaterial );
+        Scene.scene.add(dot);
+
+        prev_point = next;
+        prev_vert_index = index
+
+      } else if (Scene.scene.children.length > 0){ // fade out
+        Scene.scene.remove(Scene.scene.children[0]);
+      }
+    }
+    
+    //   // for testing: place a dot at each vertex
+    // for (let v of ngon.geometry.vertices) {
+    //   var dotGeometry = new THREE.Geometry();
+    //   dotGeometry.vertices.push(v);
+    //   var dotMaterial = new THREE.PointsMaterial( { size: 10, sizeAttenuation: false } );
+    //   var dot = new THREE.Points( dotGeometry, dotMaterial );
+    //   Scene.scene.add(dot);
+    // }
+
+        // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
+        // (throw out the first few points)
 };
 
 
-// restartCloth() is used when we change a fundamental cloth property with a slider
-// and therefore need to recreate the cloth object from scratch
-Sim.restartCloth = function() {
-  // // Remove the old cloth from the scene
-  // Scene.scene.remove(Scene.cloth.mesh);
-  // if (Scene.cloth.constraints) {
-  //   Scene.scene.remove(Scene.cloth.constraints.group);
-  // }
-  // Scene.cloth.constraints = undefined;
-
-  // // recreate the logical Cloth data structure
-  // let xSegs = SceneParams.xSegs;
-  // let ySegs = SceneParams.ySegs;
-  // let fabricLength = SceneParams.fabricLength;
-  // cloth = new Cloth(xSegs, ySegs, fabricLength);
-
-  // // recreate cloth geometry
-  // Scene.cloth.geometry = new THREE.ParametricGeometry(initParameterizedPosition, xSegs, ySegs);
-  // Scene.cloth.geometry.dynamic = true;
-
-  // // recreate cloth mesh
-  // Scene.cloth.mesh = new THREE.Mesh(Scene.cloth.geometry, Scene.cloth.material);
-  // Scene.cloth.mesh.position.set(0, 0, 0);
-  // Scene.cloth.mesh.castShadow = true;
-
-  // Scene.scene.add(Scene.cloth.mesh); // adds the cloth to the scene
-}
-
-Sim.restartTriangle = function() {
+Sim.restartNgon = function() {
   // remove old triangle outline
   // Scene.scene.remove(Scene.triangle.mesh);
 
-  while(Scene.scene.children.length > 0){ 
+  // remove old verts out
+  while(Scene.scene.children.length > 0) {
     Scene.scene.remove(Scene.scene.children[0]); 
-}
+  }
 
   // recreate the triangle data structure
-  let sideLength = SceneParams.sideLength;
-  triangle = new Triangle(sideLength);
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength);
+  // triangle = new Triangle(sideLength);
 
-  Scene.triangle.geometry = triangle.geometry;
+  Scene.ngon.vertices = ngon.vertices;
   // Scene.triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
   // update the scene geometry
   // triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());

@@ -40,6 +40,11 @@ class Params {
 
     this.sideLength = 400;
     this.r = 0.5;
+    this.nverts = 3;
+    this.fade = true;
+    this.restrict = false;
+    this.pause = false;
+    this.rotate = false;
     this.speed = 1000;
     this.dotSize = 1;
 
@@ -164,7 +169,7 @@ Params.restoreDefaults = function() {
   Gui.refreshValues();
   Scene.update();
   Sim.update();
-  Sim.restartTriangle();
+  Sim.restartNgon();
 }
 
 // https://html-online.com/articles/get-url-parameters-javascript/

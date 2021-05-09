@@ -110,14 +110,14 @@ Renderer.render = function() {
   // // update sphere position from current sphere position in simulation
   // Scene.sphere.mesh.position.copy(Scene.sphere.position);
 
-  // // option to auto-rotate camera
-  // if (SceneParams.rotate) {
-  //   let x = Scene.camera.position.x;
-  //   let z = Scene.camera.position.z;
-  //   let cameraRadius = Math.sqrt(x * x + z * z);
-  //   Scene.camera.position.x = Math.cos(timer) * cameraRadius;
-  //   Scene.camera.position.z = Math.sin(timer) * cameraRadius;
-  // }
+  // option to auto-rotate camera
+  if (SceneParams.rotate) {
+    let x = Scene.camera.position.x;
+    let z = Scene.camera.position.z;
+    let cameraRadius = Math.sqrt(x * x + z * z);
+    Scene.camera.position.x = Math.cos(timer) * cameraRadius;
+    Scene.camera.position.z = Math.sin(timer) * cameraRadius;
+  }
   Scene.camera.lookAt(Scene.scene.position);
 
   // Set up raytracer

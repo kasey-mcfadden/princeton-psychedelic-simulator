@@ -39,20 +39,55 @@ GuiConfig.dropdownOptions.pinned = [
             ("color", "string", "num", "boolean")
 */
 GuiConfig.defs = [
-  /***************************************************
-   *                Top level
+  {
+    name: "auto rotate",
+    param: "rotate",
+  },
+    /***************************************************
+   *             Polygon Properties folder
    ***************************************************/
   {
+    folderName: "Polygon Properties",
     name: "Side Length",
     param: "sideLength",
-    range: [100, 800, 20],
-    onChange: Sim.restartTriangle,
+    range: [100, 600, 10],
+    onChange: Sim.restartNgon,
   },
   {
+    folderName: "Polygon Properties",
+    name: "Number vertices",
+    param: "nverts",
+    range: [3, 10, 1],
+    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Polygon Properties",
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
-    onChange: Sim.restartTriangle,
+    onChange: Sim.restartNgon,
+  },
+
+    /***************************************************
+   *             Simulation Properties folder
+   ***************************************************/
+  {
+    folderName: "Simulation Properties",
+    name: "Fade",
+    param: "fade",
+    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Simulation Properties",
+    name: "Restrict",
+    param: "restrict",
+    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Simulation Properties",
+    name: "Pause",
+    param: "pause",
+    // onChange: Sim.restartNgon,
   },
   {
     name: "Speed",
@@ -64,7 +99,7 @@ GuiConfig.defs = [
     name: "Dot Size",
     param: "dotSize",
     range: [1, 10, 1],
-    onChange: Sim.restartTriangle,
+    onChange: Sim.restartNgon,
   },
   
   /***************************************************
@@ -82,11 +117,7 @@ GuiConfig.defs = [
    /***************************************************
     *             Top level
     ***************************************************/
-  //  {
-  //    name: "Restart simulation",
-  //    param: "restartCloth",
-  //    onClick: Sim.restartTriangle,
-  //  },
+
    {
      name: "Restore defaults",
      param: "restoreDefaults",
