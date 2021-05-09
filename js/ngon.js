@@ -1,5 +1,5 @@
 // ngon constructor
-function Ngon(nverts, sideLength) {
+function Ngon(nverts, sideLength, offset) {
     this.nverts = nverts;
     this.sideLength = sideLength;
 
@@ -15,8 +15,8 @@ function Ngon(nverts, sideLength) {
     let angle = 2 * Math.PI / nverts;
     var geometry = new THREE.Geometry();
     for (let i = 0; i < nverts; i++) {
-        let x = this.height / 2 * Math.sin(i * angle);
-        let y = this.height / 2 * Math.cos(i * angle);
+        let x = this.height / 2 * Math.sin(i * angle) + offset;
+        let y = this.height / 2 * Math.cos(i * angle) + offset;
         let v = new THREE.Vector3(x, y, 0);
         geometry.vertices.push(v);
     }

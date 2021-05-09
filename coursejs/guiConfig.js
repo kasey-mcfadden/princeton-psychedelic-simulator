@@ -62,9 +62,26 @@ GuiConfig.defs = [
   },
   {
     folderName: "Polygon Properties",
+    name: "Dot Size",
+    param: "dotSize",
+    range: [1, 10, 1],
+    onChange: Sim.restartNgon,
+  },
+
+   /***************************************************
+   *             Chaos Properties folder
+   ***************************************************/
+  {
+    folderName: "Chaos Properties",
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
+    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Chaos Properties",
+    name: "Restrict Vertices",
+    param: "restrict",
     onChange: Sim.restartNgon,
   },
 
@@ -79,28 +96,17 @@ GuiConfig.defs = [
   },
   {
     folderName: "Simulation Properties",
-    name: "Restrict",
-    param: "restrict",
-    onChange: Sim.restartNgon,
-  },
-  {
-    folderName: "Simulation Properties",
     name: "Pause",
     param: "pause",
     // onChange: Sim.restartNgon,
   },
-  {
-    name: "Speed",
-    param: "speed",
-    range: [500, 10000, 500],
-    onChange: Sim.restartNgon,
-  },
-  {
-    name: "Dot Size",
-    param: "dotSize",
-    range: [1, 10, 1],
-    onChange: Sim.restartNgon,
-  },
+
+  // {
+  //   name: "Speed",
+  //   param: "speed",
+  //   range: [500, 10000, 500],
+  //   onChange: Sim.restartNgon,
+  // },
   
   /***************************************************
    *             Scene folder

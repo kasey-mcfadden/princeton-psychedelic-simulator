@@ -9,17 +9,11 @@ var first = true;
 var prev_vert_index;
 const MAX_ITERATIONS = 10000;
 const ppi = 100; // points per iteration
-
+const offset = 0;
 
 Sim.init = function() {
-  // Points by which cloth will be suspended in "Random" pinning mode.
-  randomPoints = [];
 
-  // triangle = new Triangle(SceneParams.sideLength);
-  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength);
-  // ngon = new Ngon(SceneParams.sideLength, SceneParams.nverts);
-  // cloth = new Cloth(SceneParams.xSegs, SceneParams.ySegs, SceneParams.fabricLength);
-
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
   Sim.update();
 }
 
@@ -28,6 +22,7 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
+
   if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
     backwards = true;
   }
@@ -42,9 +37,6 @@ Sim.simulate = function() {
 
 
 Sim.chaos = function() {
-    // SceneParams.number of points or something
-    // pick a point at random
-    // let point = triangle.getRandomPoint();
 
     for (let i = 0; i < ppi; i++) {
 
@@ -87,57 +79,22 @@ Sim.chaos = function() {
     //   Scene.scene.add(dot);
     // }
 
-        // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
-        // (throw out the first few points)
 };
 
 
 Sim.restartNgon = function() {
-  // remove old triangle outline
-  // Scene.scene.remove(Scene.triangle.mesh);
 
-  // remove old verts out
+  // remove old verts
   while(Scene.scene.children.length > 0) {
     Scene.scene.remove(Scene.scene.children[0]); 
   }
-
-  // recreate the triangle data structure
-  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength);
-  // triangle = new Triangle(sideLength);
-
+  // recreate the ngon data structure
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
   Scene.ngon.vertices = ngon.vertices;
-  // Scene.triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
-  // update the scene geometry
-  // triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
-  // Scene.triangle.mesh.position.set(0, 0, 0);
-  // Scene.triangle.mesh.castShadow = true;
-  // Scene.scene.add(Scene.triangle.mesh); // adds the cloth to the scene
 }
 
 // Update the scene to reflect changes made in the GUI.
 Sim.update = function() {
   // Sim.placeObject(SceneParams.object);
   // Sim.pinCloth(SceneParams.pinned);
-}
-
-Sim.placeObject = function(object) {
-  // if (object == "Sphere" || object == "sphere") {
-  //   Scene.sphere.mesh.visible = true;
-  //   Scene.box.mesh.visible = false;
-  //   Sim.restartCloth();
-  // } else if (object == "Box" || object == "box") {
-  //   Scene.sphere.mesh.visible = false;
-  //   Scene.box.mesh.visible = true;
-  //   Sim.restartCloth();
-  // } else if (object == "None" || object == "none") {
-  //   Scene.sphere.mesh.visible = false;
-  //   Scene.box.mesh.visible = false;
-  // }
-}
-
-Sim.updateSpherePosition = function(sphere) {
-  // sphere.prevPosition.copy(sphere.position);
-  // sphere.position.y = 50 * Math.sin(time / 600);
-  // sphere.position.x = 50 * Math.sin(time / 600);
-  // sphere.position.z = 50 * Math.cos(time / 600);
 }
