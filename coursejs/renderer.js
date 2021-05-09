@@ -73,43 +73,6 @@ Renderer.animate = function() {
 Renderer.render = function() {
   let timer = time * 0.0002 * 0.8; // a hack
 
-  // update position of the cloth
-  // i.e. copy positions from the particles (i.e. result of physics simulation)
-  // to the cloth geometry
-  // let p = cloth.particles;
-  // for (let i = 0, il = p.length; i < il; i++) {
-  //   Scene.cloth.geometry.vertices[i].copy(p[i].position);
-  // }
-
-  // // Draw lines in the scene to visualize where constraints have been placed
-  // if (SceneParams.showConstraints) {
-  //   cloth.createConstraintLinesInScene();
-  //   let cs = cloth.constraints;
-  //   for (let i = 0, il = cs.length; i < il; i++) {
-  //     let obj = Scene.cloth.constraints.array[i];
-  //     let c = cs[i];
-  //     obj.geometry.attributes.position.array[0] = c.p1.position.x;
-  //     obj.geometry.attributes.position.array[1] = c.p1.position.y + 10;
-  //     obj.geometry.attributes.position.array[2] = c.p1.position.z;
-  //     obj.geometry.attributes.position.array[3] = c.p2.position.x;
-  //     obj.geometry.attributes.position.array[4] = c.p2.position.y;
-  //     obj.geometry.attributes.position.array[5] = c.p2.position.z;
-  //     if (SceneParams.allowShownConstraintMovement) {
-  //       obj.geometry.attributes.position.needsUpdate = true;
-  //     }
-  //   }
-  // }
-
-  // // recalculate cloth normals
-  // Scene.cloth.geometry.computeFaceNormals();
-  // Scene.cloth.geometry.computeVertexNormals();
-
-  // Scene.cloth.geometry.normalsNeedUpdate = true;
-  // Scene.cloth.geometry.verticesNeedUpdate = true;
-
-  // // update sphere position from current sphere position in simulation
-  // Scene.sphere.mesh.position.copy(Scene.sphere.position);
-
   // option to auto-rotate camera
   if (SceneParams.rotate) {
     let x = Scene.camera.position.x;
@@ -117,6 +80,9 @@ Renderer.render = function() {
     let cameraRadius = Math.sqrt(x * x + z * z);
     Scene.camera.position.x = Math.cos(timer) * cameraRadius;
     Scene.camera.position.z = Math.sin(timer) * cameraRadius;
+  } else { // reset camera to default position
+    Scene.camera.position.x = 0;
+    Scene.camera.position.z = 1500;
   }
   Scene.camera.lookAt(Scene.scene.position);
 

@@ -12,11 +12,11 @@ GuiConfig.dropdownOptions.textures = [
   "circuit_pattern.png",
 ];
 
-GuiConfig.dropdownOptions.objects = [
-  "None",
-  "Sphere",
-  "Box",
-];
+// GuiConfig.dropdownOptions.fade = [
+//   "None",
+//   "Fade",
+//   "Box",
+// ];
 
 GuiConfig.dropdownOptions.pinned = [
   "None",
@@ -26,6 +26,7 @@ GuiConfig.dropdownOptions.pinned = [
   "FourEdges",
   "Random",
 ];
+
 
 // Each entry of GuiConfig.defs will have one Gui element created for it.
 /* Parameters are as follows:
@@ -62,9 +63,26 @@ GuiConfig.defs = [
   },
   {
     folderName: "Polygon Properties",
+    name: "Dot Size",
+    param: "dotSize",
+    range: [1, 10, 1],
+    onChange: Sim.restartNgon,
+  },
+
+   /***************************************************
+   *             Chaos Properties folder
+   ***************************************************/
+  {
+    folderName: "Chaos Properties",
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
+    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Chaos Properties",
+    name: "Restrict Vertices",
+    param: "restrict",
     onChange: Sim.restartNgon,
   },
 
@@ -79,28 +97,31 @@ GuiConfig.defs = [
   },
   {
     folderName: "Simulation Properties",
-    name: "Restrict",
-    param: "restrict",
-    onChange: Sim.restartNgon,
-  },
-  {
-    folderName: "Simulation Properties",
     name: "Pause",
     param: "pause",
-    // onChange: Sim.restartNgon,
   },
-  {
-    name: "Speed",
-    param: "speed",
-    range: [250, 1500, 250],
-    onChange: Sim.restartTriangle,
+  // {
+  //   // folderName: "Simulation Properties",
+  //   name: "Dot Color",
+  //   param: "dotColor",
+  //   // type: "color",
+  //   onChange: Sim.restartNgon,
+  // },
+
+    {
+    // folderName: "Simulation Properties",
+    name: "Background",
+    param: "backgroundColor",
+    type: "color",
+    onChange: Scene.update,
   },
-  {
-    name: "Dot Size",
-    param: "dotSize",
-    range: [1, 10, 1],
-    onChange: Sim.restartNgon,
-  },
+
+  // {
+  //   name: "Speed",
+  //   param: "speed",
+  //   range: [500, 10000, 500],
+  //   onChange: Sim.restartNgon,
+  // },
   
   /***************************************************
    *             Scene folder
@@ -118,9 +139,16 @@ GuiConfig.defs = [
     *             Top level
     ***************************************************/
 
-   {
-     name: "Restore defaults",
-     param: "restoreDefaults",
-     onClick: Params.restoreDefaults,
-   }
+    {
+      name: "tile",
+      param: "tile",
+      onClick: Sim.tile,
+    },
+    {
+      name: "Restore defaults",
+      param: "restoreDefaults",
+      onClick: Params.restoreDefaults,
+    }
+
+
  ];

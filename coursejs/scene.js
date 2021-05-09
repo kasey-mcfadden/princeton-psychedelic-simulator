@@ -109,32 +109,6 @@ Scene.buildLights = function() {
 }
 
 
-
-Scene.buildBox = function() {
-  let box = {}
-
-  // create a box mesh
-  box.geometry = new THREE.BoxGeometry(250, 100, 250);
-  box.material = new THREE.MeshPhongMaterial({
-    color: 0xaaaaaa,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.15, // clipping is an issue, so set a low opacity
-  });
-  box.mesh = new THREE.Mesh(box.geometry, box.material);
-  box.mesh.position.x = 0;
-  box.mesh.position.y = 0;
-  box.mesh.position.z = 0;
-  box.mesh.receiveShadow = true;
-  box.mesh.castShadow = true;
-
-  box.geometry.computeBoundingBox();
-  box.boundingBox = box.geometry.boundingBox.clone();
-
-  Scene.scene.add(box.mesh);
-  return box;
-}
-
 Scene.buildNgon = function() {
 
   let ngon = {};
@@ -171,7 +145,7 @@ Scene.buildNgon = function() {
 Scene.update = function() {
   // Repair broken SceneParams colors
   Params.repairColors();
-  
+  Scene.scene.background.setHex(SceneParams.backgroundColor);
 
   // Reset textures
   // Scene.updateClothTexture(SceneParams.clothTexture);
