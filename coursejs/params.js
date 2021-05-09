@@ -47,6 +47,7 @@ class Params {
     this.rotate = false;
     this.speed = 1000;
     this.dotSize = 1;
+    // this.dotColor = new THREE.Color("#fffff");
     // ====================================================================
     //            Properties of forces and interactions
     // ====================================================================
@@ -90,6 +91,7 @@ class Params {
     // ====================================================================
     //              Rendering properties of the scene
     // ====================================================================
+    this.backgroundColor = 0x00000;
     // this.wireframe = true;  // should meshes render as wireframes?
     // this.rotate = false;    // Should the camera auto-rotate?
 
@@ -135,6 +137,7 @@ class Params {
     // showWireframe(this.wireframe);
     // placeObject(this.object);
     // pinCloth(this.pinned);
+    // this.dotColor.setHex(this.dotColor);
 
     // clothMaterial.color.setHex(this.clothColor);
     // clothMaterial.specular.setHex(this.clothSpecular);

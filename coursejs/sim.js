@@ -35,8 +35,7 @@ Sim.simulate = function() {
   }
 }
 
-
-
+// perform the chaos game algorithm
 Sim.chaos = function() {
 
     for (let i = 0; i < ppi; i++) {
@@ -59,7 +58,9 @@ Sim.chaos = function() {
     
         var dotGeometry = new THREE.Geometry();
         dotGeometry.vertices.push(next);
-        var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false } );
+        // var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false, color: SceneParams.dotColor} );
+        var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false} );
+        // dotMaterial.color.setHex(SceneParams.dotColor);
         var dot = new THREE.Points( dotGeometry, dotMaterial );
         Scene.scene.add(dot);
 
@@ -94,6 +95,10 @@ Sim.restartNgon = function() {
   // recreate the ngon data structure
   ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
   Scene.ngon.vertices = ngon.vertices;
+}
+
+Sim.tile = function() {
+  SceneParams.nverts = 4;
 }
 
 // Update the scene to reflect changes made in the GUI.

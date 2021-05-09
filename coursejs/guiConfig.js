@@ -101,6 +101,21 @@ GuiConfig.defs = [
     param: "pause",
     onChange: Sim.restartNgon,
   },
+  // {
+  //   // folderName: "Simulation Properties",
+  //   name: "Dot Color",
+  //   param: "dotColor",
+  //   // type: "color",
+  //   onChange: Sim.restartNgon,
+  // },
+
+    {
+    // folderName: "Simulation Properties",
+    name: "Background",
+    param: "backgroundColor",
+    type: "color",
+    onChange: Scene.update,
+  },
 
   // {
   //   name: "Speed",
@@ -125,9 +140,16 @@ GuiConfig.defs = [
     *             Top level
     ***************************************************/
 
-   {
-     name: "Restore defaults",
-     param: "restoreDefaults",
-     onClick: Params.restoreDefaults,
-   }
+    {
+      name: "tile",
+      param: "tile",
+      onClick: Sim.tile,
+    },
+    {
+      name: "Restore defaults",
+      param: "restoreDefaults",
+      onClick: Params.restoreDefaults,
+    }
+
+
  ];
