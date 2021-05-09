@@ -24,10 +24,10 @@ Sim.init = function() {
 Sim.simulate = function() {
   if (!SceneParams.pause) {
     if (Scene.scene.children.length < MAX_ITERATIONS + 1.5 * ppi) {
-      if (SceneParams.fade && Scene.scene.children.length >= MAX_ITERATIONS) {
-        backwards = true;
-      } else if (Scene.scene.children.length == 0) {
+      if (Scene.scene.children.length == 0) {
         backwards = false;
+      } else if (SceneParams.fade && Scene.scene.children.length >= MAX_ITERATIONS) {
+        backwards = true;
       }
       Sim.chaos();
     }
