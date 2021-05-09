@@ -12,11 +12,11 @@ GuiConfig.dropdownOptions.textures = [
   "circuit_pattern.png",
 ];
 
-GuiConfig.dropdownOptions.objects = [
-  "None",
-  "Sphere",
-  "Box",
-];
+// GuiConfig.dropdownOptions.fade = [
+//   "None",
+//   "Fade",
+//   "Box",
+// ];
 
 GuiConfig.dropdownOptions.pinned = [
   "None",
@@ -26,6 +26,7 @@ GuiConfig.dropdownOptions.pinned = [
   "FourEdges",
   "Random",
 ];
+
 
 // Each entry of GuiConfig.defs will have one Gui element created for it.
 /* Parameters are as follows:
@@ -98,7 +99,7 @@ GuiConfig.defs = [
     folderName: "Simulation Properties",
     name: "Pause",
     param: "pause",
-    // onChange: Sim.restartNgon,
+    onChange: Sim.restartNgon,
   },
 
   // {

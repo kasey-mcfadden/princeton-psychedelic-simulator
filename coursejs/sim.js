@@ -84,7 +84,9 @@ Sim.chaos = function() {
 
 
 Sim.restartNgon = function() {
-
+  if (SceneParams.pause) {
+    return;
+  }
   // remove old verts
   while(Scene.scene.children.length > 0) {
     Scene.scene.remove(Scene.scene.children[0]); 

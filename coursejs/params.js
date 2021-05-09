@@ -47,7 +47,6 @@ class Params {
     this.rotate = false;
     this.speed = 1000;
     this.dotSize = 1;
-
     // ====================================================================
     //            Properties of forces and interactions
     // ====================================================================
