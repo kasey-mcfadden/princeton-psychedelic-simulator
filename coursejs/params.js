@@ -44,6 +44,7 @@ class Params {
     this.fade = true;
     this.restrict = false;
     this.pause = false;
+    this.rotate = false;
 
     // ====================================================================
     //            Properties of forces and interactions

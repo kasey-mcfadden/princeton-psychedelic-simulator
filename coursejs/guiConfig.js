@@ -39,6 +39,10 @@ GuiConfig.dropdownOptions.pinned = [
             ("color", "string", "num", "boolean")
 */
 GuiConfig.defs = [
+  {
+    name: "auto rotate",
+    param: "rotate",
+  },
     /***************************************************
    *             Polygon Properties folder
    ***************************************************/
@@ -46,7 +50,7 @@ GuiConfig.defs = [
     folderName: "Polygon Properties",
     name: "Side Length",
     param: "sideLength",
-    range: [100, 800, 20],
+    range: [100, 600, 10],
     onChange: Sim.restartNgon,
   },
   {
@@ -56,27 +60,28 @@ GuiConfig.defs = [
     range: [3, 10, 1],
     onChange: Sim.restartNgon,
   },
+  {
+    folderName: "Polygon Properties",
+    name: "R Parameter",
+    param: "r",
+    range: [0, 1, 0.1],
+    onChange: Sim.restartNgon,
+  },
 
     /***************************************************
    *             Simulation Properties folder
    ***************************************************/
   {
     folderName: "Simulation Properties",
-    name: "R Parameter",
-    param: "r",
-    range: [0, 1, 0.1],
-    onChange: Sim.restartNgon,
-  },
-  {
-    folderName: "Simulation Properties",
     name: "Fade",
     param: "fade",
+    onChange: Sim.restartNgon,
   },
   {
     folderName: "Simulation Properties",
     name: "Restrict",
     param: "restrict",
-    // onChange: Sim.restartNgon,
+    onChange: Sim.restartNgon,
   },
   {
     folderName: "Simulation Properties",

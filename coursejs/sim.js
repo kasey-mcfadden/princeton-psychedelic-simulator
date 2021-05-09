@@ -7,8 +7,9 @@ var prev_point;
 var backwards = false;
 var first = true;
 var prev_vert_index;
-
 const MAX_ITERATIONS = 10000;
+const ppi = 100; // points per iteration
+
 
 Sim.init = function() {
   // Points by which cloth will be suspended in "Random" pinning mode.
@@ -59,10 +60,11 @@ Sim.simulate = function() {
   if (Scene.scene.children.length == 0) {
     backwards = false;
   }
-  if (!SceneParams.pause && Scene.scene.children.length < MAX_ITERATIONS + 200) {
+  if (!SceneParams.pause && Scene.scene.children.length < MAX_ITERATIONS + 2 * ppi) {
     Sim.chaos();
   }
 }
+
 
 
 Sim.chaos = function() {
@@ -70,11 +72,9 @@ Sim.chaos = function() {
     // pick a point at random
     // let point = triangle.getRandomPoint();
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < ppi; i++) {
 
       if (backwards == false) { // fade in
-        // let index = Math.round(Math.random() * (SceneParams.nverts - 1));
-        // let v = ngon.geometry.vertices[index].clone(); // get a random vertex on the polygon
         let point = ngon.getRandomPoint();
         let index = ngon.getRandomVertexIndex(SceneParams.restrict, prev_vert_index);
 
@@ -86,7 +86,7 @@ Sim.chaos = function() {
 
         let v = ngon.vertices[index].clone();
   
-        // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
+        // get the next point (some fraction r of the distance between it and a polygon vertex picked at random)
         let next = new THREE.Vector3().subVectors(v, prev_point);
         next.multiplyScalar(SceneParams.r);
     
@@ -122,7 +122,8 @@ Sim.restartNgon = function() {
   // remove old triangle outline
   // Scene.scene.remove(Scene.triangle.mesh);
 
-  while(Scene.scene.children.length > 0){ 
+  // remove old verts out
+  while(Scene.scene.children.length > 0) {
     Scene.scene.remove(Scene.scene.children[0]); 
   }
 
