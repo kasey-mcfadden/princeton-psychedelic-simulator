@@ -42,6 +42,7 @@ class Params {
     this.r = 0.5;
     this.nverts = 3;
     this.fade = true;
+    this.spin = false;
     this.restrict = false;
     this.pause = false;
     this.rotate = false;

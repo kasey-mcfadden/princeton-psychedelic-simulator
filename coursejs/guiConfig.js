@@ -100,6 +100,11 @@ GuiConfig.defs = [
     name: "Pause",
     param: "pause",
   },
+  {
+    folderName: "Simulation Properties",
+    name: "Spin",
+    param: "spin",
+  },
   // {
   //   // folderName: "Simulation Properties",
   //   name: "Dot Color",

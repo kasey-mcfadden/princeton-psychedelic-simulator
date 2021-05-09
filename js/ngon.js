@@ -22,7 +22,6 @@ function Ngon(nverts, sideLength, offset) {
     }
 
     this.vertices = geometry.vertices;
-
 };
 
 function random() {
@@ -54,6 +53,25 @@ Ngon.prototype.getRandomPoint = function() {
     point.y += this.height / 2;
 
     return point;
+};
+
+
+Ngon.prototype.spin = function() {
+  let SCALE = 1.05;
+
+  let offsets = [];
+
+  for (let i = 0; i < this.nverts - 1; i++) {
+    let v1 = this.vertices[i].clone();
+    let v2 = this.vertices[i + 1].clone();
+    let v12 = new THREE.Vector3().subVectors(v2, v1).multiplyScalar(SCALE);
+    offsets.push(v12);
+  }
+
+
+  for (let i = 0; i < this.nverts - 1; i++) {
+    this.vertices[i].add(offsets[i]);
+  }
 };
 
 Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVertex) {
