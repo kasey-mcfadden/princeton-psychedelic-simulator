@@ -8,7 +8,7 @@ var backwards = false;
 var first = true;
 var prev_vert_index;
 const MAX_ITERATIONS = 10000;
-const ppi = 100; // points per iteration
+var ppi = 100; // points per iteration
 const offset = 0;
 
 Sim.init = function() {
@@ -23,13 +23,12 @@ Sim.init = function() {
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
   if (!SceneParams.pause) {
-    if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
-      backwards = true;
-    }
-    if (Scene.scene.children.length == 0) {
-      backwards = false;
-    }
-    if (Scene.scene.children.length < MAX_ITERATIONS + 2 * ppi) {
+    if (Scene.scene.children.length < MAX_ITERATIONS + 1.5 * ppi) {
+      if (SceneParams.fade && Scene.scene.children.length >= MAX_ITERATIONS) {
+        backwards = true;
+      } else if (Scene.scene.children.length == 0) {
+        backwards = false;
+      }
       Sim.chaos();
     }
   }
