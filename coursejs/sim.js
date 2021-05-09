@@ -22,15 +22,16 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
-
-  if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
-    backwards = true;
-  }
-  if (Scene.scene.children.length == 0) {
-    backwards = false;
-  }
-  if (!SceneParams.pause && Scene.scene.children.length < MAX_ITERATIONS + 2 * ppi) {
-    Sim.chaos();
+  if (!SceneParams.pause) {
+    if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
+      backwards = true;
+    }
+    if (Scene.scene.children.length == 0) {
+      backwards = false;
+    }
+    if (Scene.scene.children.length < MAX_ITERATIONS + 2 * ppi) {
+      Sim.chaos();
+    }
   }
 }
 
