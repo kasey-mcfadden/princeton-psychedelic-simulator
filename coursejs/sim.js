@@ -5,8 +5,10 @@ var triangle;
 var ngon;
 var prev_point;
 var backwards = false;
+var first = true;
+var prev_vert_index;
 
-const MAX_ITERATIONS = 100000;
+const MAX_ITERATIONS = 10000;
 
 Sim.init = function() {
   // Points by which cloth will be suspended in "Random" pinning mode.
@@ -51,31 +53,39 @@ Sim.simulate = function() {
   // Pin constraints
   // Sim.enforcePinConstraints();
 
-  
-  if (Scene.scene.children.length > MAX_ITERATIONS) {
+  if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
     backwards = true;
   }
   if (Scene.scene.children.length == 0) {
     backwards = false;
   }
-  Sim.fractal();
+  if (!SceneParams.pause && Scene.scene.children.length < MAX_ITERATIONS + 200) {
+    Sim.chaos();
+  }
 }
 
 
-Sim.fractal = function() {
+Sim.chaos = function() {
     // SceneParams.number of points or something
     // pick a point at random
     // let point = triangle.getRandomPoint();
-    let point = ngon.getRandomPoint();
 
-    if (prev_point === undefined) {
-      prev_point = point;
-      return;
-    }
     for (let i = 0; i < 100; i++) {
+
       if (backwards == false) { // fade in
-        let index = Math.round(Math.random() * (SceneParams.nverts - 1));
-        let v = ngon.geometry.vertices[index].clone();
+        // let index = Math.round(Math.random() * (SceneParams.nverts - 1));
+        // let v = ngon.geometry.vertices[index].clone(); // get a random vertex on the polygon
+        let point = ngon.getRandomPoint();
+        let index = ngon.getRandomVertexIndex(SceneParams.restrict, prev_vert_index);
+
+        if (prev_point === undefined || prev_vert_index === undefined) {
+          prev_point = point;
+          prev_vert_index = index;
+          return;
+        }
+
+        let v = ngon.vertices[index].clone();
+  
         // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
         let next = new THREE.Vector3().subVectors(v, prev_point);
         next.multiplyScalar(SceneParams.r);
@@ -85,11 +95,13 @@ Sim.fractal = function() {
         var dotMaterial = new THREE.PointsMaterial( { size: 1, sizeAttenuation: false } );
         var dot = new THREE.Points( dotGeometry, dotMaterial );
         Scene.scene.add(dot);
+
         prev_point = next;
-      } else { // fade out
+        prev_vert_index = index
+
+      } else if (Scene.scene.children.length > 0){ // fade out
         Scene.scene.remove(Scene.scene.children[0]);
       }
-      
     }
     
     //   // for testing: place a dot at each vertex
@@ -118,7 +130,7 @@ Sim.restartNgon = function() {
   ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength);
   // triangle = new Triangle(sideLength);
 
-  Scene.ngon.geometry = ngon.geometry;
+  Scene.ngon.vertices = ngon.vertices;
   // Scene.triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());
   // update the scene geometry
   // triangle.mesh = new THREE.Mesh(triangle.geometry, new THREE.MeshNormalMaterial());

@@ -3,6 +3,7 @@ function Ngon(nverts, sideLength) {
     this.nverts = nverts;
     this.sideLength = sideLength;
 
+    // reference for trig calculations: https://calcresource.com/geom-ngon.html
     let circumradius = sideLength / (2 * Math.sin(Math.PI / nverts));
     let inradius = sideLength / (2 * Math.tan(Math.PI / nverts));
     if (nverts % 2 == 0) { // even verts
@@ -20,7 +21,7 @@ function Ngon(nverts, sideLength) {
         geometry.vertices.push(v);
     }
 
-    this.geometry = geometry;
+    this.vertices = geometry.vertices;
 
 };
 
@@ -38,9 +39,9 @@ function random() {
 
 // reference: https://mathworld.wolfram.com/TrianglePointPicking.html
 Ngon.prototype.getRandomPoint = function() {
-    let v0 = ngon.geometry.vertices[0];
-    let v1 = ngon.geometry.vertices[1];
-    let v2 = ngon.geometry.vertices[2];
+    let v0 = ngon.vertices[0];
+    let v1 = ngon.vertices[1];
+    let v2 = ngon.vertices[2];
 
     let rand = random();
 
@@ -48,11 +49,24 @@ Ngon.prototype.getRandomPoint = function() {
     let vec2 = new THREE.Vector3().subVectors(v2, v0);
 
     vec1.multiplyScalar(rand[0]);
-    // vec1.y += this.height;
     vec2.multiplyScalar(rand[1]);
-    // vec2.y += this.height;
     let point = new THREE.Vector3().addVectors(vec1, vec2);
     point.y += this.height / 2;
 
     return point;
 };
+
+Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVertex) {
+    if (!restrict) {
+        return Math.round(Math.random() * (this.nverts - 1));
+    }
+    let goodV = false;
+    let index;
+    while (!goodV) {
+      index = Math.round(Math.random() * (this.nverts - 1));
+      if (index != restrictedVertex) {
+        goodV = true;
+      }
+    }
+    return index;
+}

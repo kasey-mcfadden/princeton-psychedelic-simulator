@@ -27,7 +27,6 @@ Scene.init = function() {
 
   // Now fill the scene with objects
   // Scene.fractal = Scene.buildFractal();
-  Scene.triangle = Scene.buildTriangle();
   Scene.ngon = Scene.buildNgon();
   Scene.update();
 }
@@ -136,48 +135,13 @@ Scene.buildBox = function() {
   return box;
 }
 
-Scene.buildTriangle = function() {
-  // Scene.scene.add(cloth.mesh); // add cloth to the scene
-  // return cloth;
-  let triangle = {};
-  let sideLength = SceneParams.sideLength;
-  let height = sideLength * (Math.sqrt(3)/2);
-  
-  let v1 = new THREE.Vector3(0, height / 2, 0);
-  let v2 = new THREE.Vector3(-sideLength / 2, -height / 2, 0);
-  let v3 = new THREE.Vector3(sideLength / 2, -height / 2, 0);
-  var tri = new THREE.Triangle(v1, v2, v3);
-
-  var geometry = new THREE.Geometry();
-  geometry.vertices.push(tri.a);
-  geometry.vertices.push(tri.b);
-  geometry.vertices.push(tri.c);
-
-  // triangle.vertices = geometry.vertices;
-
-  // geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
-  // var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
-  
-  triangle.sideLength = sideLength;
-  triangle.geometry = geometry;
-  // triangle.mesh = mesh;
-
-  // Scene.scene.add(triangle.mesh);
-
-  // triangle.outline = new THREE.Mesh(
-  //   geometry,
-  //   new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-  // );
-  // // scene.add(line);
-  // Scene.scene.add(triangle.outline);
-  return triangle;
-}
-
 Scene.buildNgon = function() {
 
   let ngon = {};
   let sideLength = SceneParams.sideLength;
   let nverts = SceneParams.nverts;
+
+  // reference for trig calculations: https://calcresource.com/geom-ngon.html
   let circumradius = sideLength / (2 * Math.sin(Math.PI / nverts));
   let inradius = sideLength / (2 * Math.tan(Math.PI / nverts));
   let height;
@@ -197,7 +161,7 @@ Scene.buildNgon = function() {
     geometry.vertices.push(v);
   }
 
-  ngon.geometry = geometry;
+  ngon.vertices = geometry.vertices;
   ngon.sideLength = sideLength;
   ngon.height = height;
 

@@ -39,28 +39,51 @@ GuiConfig.dropdownOptions.pinned = [
             ("color", "string", "num", "boolean")
 */
 GuiConfig.defs = [
-  /***************************************************
-   *                Top level
+    /***************************************************
+   *             Polygon Properties folder
    ***************************************************/
   {
+    folderName: "Polygon Properties",
     name: "Side Length",
     param: "sideLength",
     range: [100, 800, 20],
     onChange: Sim.restartNgon,
   },
   {
+    folderName: "Polygon Properties",
+    name: "Number vertices",
+    param: "nverts",
+    range: [3, 10, 1],
+    onChange: Sim.restartNgon,
+  },
+
+    /***************************************************
+   *             Simulation Properties folder
+   ***************************************************/
+  {
+    folderName: "Simulation Properties",
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
     onChange: Sim.restartNgon,
   },
   {
-    name: "Number vertices",
-    param: "nverts",
-    range: [3, 10, 1],
-    onChange: Sim.restartNgon,
+    folderName: "Simulation Properties",
+    name: "Fade",
+    param: "fade",
   },
-  
+  {
+    folderName: "Simulation Properties",
+    name: "Restrict",
+    param: "restrict",
+    // onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Simulation Properties",
+    name: "Pause",
+    param: "pause",
+    // onChange: Sim.restartNgon,
+  },
   /***************************************************
    *             Scene folder
    ***************************************************/
@@ -76,11 +99,7 @@ GuiConfig.defs = [
    /***************************************************
     *             Top level
     ***************************************************/
-  //  {
-  //    name: "Restart simulation",
-  //    param: "restartCloth",
-  //    onClick: Sim.restartNgon,
-  //  },
+
    {
      name: "Restore defaults",
      param: "restoreDefaults",
