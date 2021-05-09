@@ -57,7 +57,7 @@ GuiConfig.defs = [
   {
     name: "Speed",
     param: "speed",
-    range: [500, 10000, 500],
+    range: [250, 1500, 250],
     onChange: Sim.restartTriangle,
   },
   {

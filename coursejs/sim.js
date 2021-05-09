@@ -25,32 +25,31 @@ Sim.simulate = function() {
 
 
 Sim.fractal = function() {
-    // SceneParams.number of points or something
-    // for (let i = 0; i < 1000; i++) {
-    // pick a point at random
-    let point = triangle.getRandomPoint();
-    if (prev_point === undefined) {
-      prev_point = point;
-      return;
-    }
-    for (let i = 0; i < SceneParams.speed; i++) {
-      let index = Math.round(Math.random() * 2);
-      let v = triangle.geometry.vertices[index].clone();
-      // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
-      let next = new THREE.Vector3().subVectors(v, prev_point);
-      next.multiplyScalar(SceneParams.r);
-  
-      var dotGeometry = new THREE.Geometry();
-      dotGeometry.vertices.push(next);
-      var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false } );
-      var dot = new THREE.Points( dotGeometry, dotMaterial );
-      Scene.scene.add(dot);
-      prev_point = next;
-    }
-    
-        // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
-        // (throw out the first few points)
-    // }
+  // SceneParams.number of points or something
+  // for (let i = 0; i < 1000; i++) {
+  // pick a point at random
+  let point = triangle.getRandomPoint();
+  if (prev_point === undefined) {
+    prev_point = point;
+    return;
+  }
+  for (let i = 0; i < SceneParams.speed; i++) {
+    let index = Math.round(Math.random() * 2);
+    let v = triangle.geometry.vertices[index].clone();
+    // draw the next point some fraction r of the distance between it and a polygon vertex picked at random
+    let next = new THREE.Vector3().subVectors(v, prev_point);
+    next.multiplyScalar(SceneParams.r);
+
+    var dotGeometry = new THREE.Geometry();
+    dotGeometry.vertices.push(next);
+    var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false } );
+    var dot = new THREE.Points( dotGeometry, dotMaterial );
+    Scene.scene.add(dot);
+    prev_point = next;
+  }
+
+  // spin
+  triangle.spin();
 };
 
 
