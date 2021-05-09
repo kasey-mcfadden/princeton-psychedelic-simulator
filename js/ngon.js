@@ -68,11 +68,16 @@ Ngon.prototype.spin = function() {
     offsets.push(v12);
   }
 
+  let firstV = this.vertices[0].clone();
+  let lastV = this.vertices[this.nverts - 1].clone();
+  let v12 = new THREE.Vector3().subVectors(firstV, lastV).multiplyScalar(SCALE);
+  offsets.push(v12);
 
-  for (let i = 0; i < this.nverts - 1; i++) {
+  for (let i = 0; i < this.nverts; i++) {
     this.vertices[i].add(offsets[i]);
   }
 };
+
 
 Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVertex) {
     if (!restrict) {

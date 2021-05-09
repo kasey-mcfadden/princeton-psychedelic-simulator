@@ -67,11 +67,10 @@ Sim.chaos = function() {
     } else if (Scene.scene.children.length > 0){ // fade out
       Scene.scene.remove(Scene.scene.children[0]);
     }
-    if (SceneParams.spin) {
-      ngon.spin();
-    }
   }
-    
+  if (SceneParams.spin) {
+    ngon.spin();
+  }
   //   // for testing: place a dot at each vertex
   // for (let v of ngon.geometry.vertices) {
   //   var dotGeometry = new THREE.Geometry();
