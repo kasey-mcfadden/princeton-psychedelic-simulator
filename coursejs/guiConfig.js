@@ -89,6 +89,19 @@ GuiConfig.defs = [
     param: "pause",
     // onChange: Sim.restartNgon,
   },
+  {
+    name: "Speed",
+    param: "speed",
+    range: [500, 10000, 500],
+    onChange: Sim.restartTriangle,
+  },
+  {
+    name: "Dot Size",
+    param: "dotSize",
+    range: [1, 10, 1],
+    onChange: Sim.restartTriangle,
+  },
+  
   /***************************************************
    *             Scene folder
    ***************************************************/

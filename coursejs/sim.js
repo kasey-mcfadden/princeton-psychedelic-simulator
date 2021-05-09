@@ -28,32 +28,6 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
-  // If toggled, update sphere position for interactive fun
-  // if (SceneParams.movingSphere && Scene.sphere.mesh.visible) {
-  //   Sim.updateSpherePosition(Scene.sphere);
-  // }
-  // console.log(triangle.getRandomPoint());
-
-  // // Apply all relevant forces to the cloth's particles
-  // cloth.applyForces();
-
-  // // For each particle, perform Verlet integration to compute its new position
-  // cloth.update(SceneParams.TIMESTEP);
-
-  // // Handle collisions with other objects in the scene
-  // cloth.handleCollisions();
-
-  // // Handle self-intersections
-  // if (SceneParams.avoidClothSelfIntersection) {
-  //   cloth.handleSelfIntersections();
-  // }
-
-  // Apply cloth constraints
-  // cloth.enforceConstraints();
-  // triangle.fractal();
-  // Pin constraints
-  // Sim.enforcePinConstraints();
-
   if (SceneParams.fade && Scene.scene.children.length > MAX_ITERATIONS) {
     backwards = true;
   }
