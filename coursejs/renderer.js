@@ -71,7 +71,9 @@ Renderer.animate = function() {
 
 // the rendering happens here
 Renderer.render = function() {
-  let timer = time * 0.0002 * 0.8; // a hack
+  // let timer = time * 0.0002 * 0.8; // a hack
+  let timer = time * 0.00002 * 0.8; // smoother
+
 
   // option to auto-rotate camera
   if (SceneParams.rotate) {
@@ -80,6 +82,11 @@ Renderer.render = function() {
     let cameraRadius = Math.sqrt(x * x + z * z);
     Scene.camera.position.x = Math.cos(timer) * cameraRadius;
     Scene.camera.position.z = Math.sin(timer) * cameraRadius;
+  } else if (SceneParams.bounce) {
+    let x = Scene.camera.position.x;
+    let z = Scene.camera.position.z;
+    let cameraRadius = Math.sqrt(x * x + z * z);
+    Scene.camera.position.x = Math.cos(timer) * cameraRadius;
   } else { // reset camera to default position
     Scene.camera.position.x = 0;
     Scene.camera.position.z = 1500;

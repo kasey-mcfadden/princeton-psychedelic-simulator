@@ -2,31 +2,6 @@
 
 var GuiConfig = GuiConfig || {};
 
-GuiConfig.textureNames = [
-  "tbd",
-];
-
-GuiConfig.dropdownOptions = {};
-
-GuiConfig.dropdownOptions.textures = [
-  "circuit_pattern.png",
-];
-
-// GuiConfig.dropdownOptions.fade = [
-//   "None",
-//   "Fade",
-//   "Box",
-// ];
-
-GuiConfig.dropdownOptions.pinned = [
-  "None",
-  "Corners",
-  "OneEdge",
-  "TwoEdges",
-  "FourEdges",
-  "Random",
-];
-
 
 // Each entry of GuiConfig.defs will have one Gui element created for it.
 /* Parameters are as follows:
@@ -41,8 +16,12 @@ GuiConfig.dropdownOptions.pinned = [
 */
 GuiConfig.defs = [
   {
-    name: "auto rotate",
+    name: "rotate",
     param: "rotate",
+  },
+  {
+    name: "bounce",
+    param: "bounce",
   },
     /***************************************************
    *             Polygon Properties folder
