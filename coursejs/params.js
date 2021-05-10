@@ -50,6 +50,7 @@ class Params {
     this.ppi = 100;
     this.dotSize = 1;
     this.bounce = false;
+    this.animation = "none";
     // this.dotColor = new THREE.Color("#fffff");
     // ====================================================================
     //            Properties of forces and interactions

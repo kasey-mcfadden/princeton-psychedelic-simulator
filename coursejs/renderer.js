@@ -76,17 +76,25 @@ Renderer.render = function() {
 
 
   // option to auto-rotate camera
-  if (SceneParams.rotate) {
+  if (SceneParams.animation === "rotate") {
     let x = Scene.camera.position.x;
     let z = Scene.camera.position.z;
     let cameraRadius = Math.sqrt(x * x + z * z);
     Scene.camera.position.x = Math.cos(timer) * cameraRadius;
     Scene.camera.position.z = Math.sin(timer) * cameraRadius;
-  } else if (SceneParams.bounce) {
+  } else if (SceneParams.animation === "bounce") {
     let x = Scene.camera.position.x;
     let z = Scene.camera.position.z;
     let cameraRadius = Math.sqrt(x * x + z * z);
     Scene.camera.position.x = Math.cos(timer) * cameraRadius;
+  } else if (SceneParams.animation === "rave") {
+    timer *= 10;
+
+    let x = Scene.camera.position.x;
+    let z = Scene.camera.position.z;
+    let cameraRadius = Math.sqrt(x * x + z * z);
+    Scene.camera.position.x = Math.cos(timer) * cameraRadius;
+    Scene.camera.position.z = Math.sin(timer) * cameraRadius;
   } else { // reset camera to default position
     Scene.camera.position.x = 0;
     Scene.camera.position.z = 1500;

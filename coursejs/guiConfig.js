@@ -2,6 +2,14 @@
 
 var GuiConfig = GuiConfig || {};
 
+GuiConfig.dropdownOptions = {};
+
+GuiConfig.dropdownOptions.animation = [
+  "none",
+  "rotate",
+  "bounce",
+  "rave",
+];
 
 // Each entry of GuiConfig.defs will have one Gui element created for it.
 /* Parameters are as follows:
@@ -15,14 +23,7 @@ var GuiConfig = GuiConfig || {};
             ("color", "string", "num", "boolean")
 */
 GuiConfig.defs = [
-  {
-    name: "rotate",
-    param: "rotate",
-  },
-  {
-    name: "bounce",
-    param: "bounce",
-  },
+
     /***************************************************
    *             Polygon Properties folder
    ***************************************************/
@@ -49,17 +50,17 @@ GuiConfig.defs = [
   },
 
    /***************************************************
-   *             Chaos Properties folder
+   *             Chaos Algorithm folder
    ***************************************************/
   {
-    folderName: "Chaos Properties",
+    folderName: "Chaos Algorithm",
     name: "R Parameter",
     param: "r",
     range: [0, 1, 0.1],
     onChange: Sim.restartNgon,
   },
   {
-    folderName: "Chaos Properties",
+    folderName: "Chaos Algorithm",
     name: "Restrict Vertices",
     param: "restrict",
     onChange: Sim.restartNgon,
@@ -83,6 +84,7 @@ GuiConfig.defs = [
     folderName: "Simulation Properties",
     name: "Spin",
     param: "spin",
+    onChange: Sim.spin,
   },
   // {
   //   // folderName: "Simulation Properties",
@@ -122,7 +124,14 @@ GuiConfig.defs = [
    /***************************************************
     *             Top level
     ***************************************************/
-
+    {
+      // folderName: "Scene",
+      name: "animations",
+      param: "animation",
+      dropdownOptions: GuiConfig.dropdownOptions.animation,
+      defaultOption: GuiConfig.dropdownOptions.animation[1],
+      onChange: Sim.restartNgon,
+    },
     {
       name: "tile",
       param: "tile",

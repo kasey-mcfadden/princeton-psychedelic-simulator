@@ -81,6 +81,12 @@ Sim.chaos = function() {
   // }
 };
 
+Sim.spin = function() {
+  if (!SceneParams.spin) {
+    Sim.restartNgon;
+  }
+}
+
 
 Sim.restartNgon = function() {
   if (SceneParams.pause) {
