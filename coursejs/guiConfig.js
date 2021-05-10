@@ -85,12 +85,6 @@ GuiConfig.defs = [
     param: "restrict",
     onChange: Sim.restartNgon,
   },
-  {
-    name: "Speed",
-    param: "speed",
-    range: [250, 1500, 250],
-    onChange: Sim.restartTriangle,
-  },
 
     /***************************************************
    *             Simulation Properties folder
@@ -105,7 +99,11 @@ GuiConfig.defs = [
     folderName: "Simulation Properties",
     name: "Pause",
     param: "pause",
-    onChange: Sim.restartNgon,
+  },
+  {
+    folderName: "Simulation Properties",
+    name: "Spin",
+    param: "spin",
   },
   // {
   //   // folderName: "Simulation Properties",
@@ -123,12 +121,12 @@ GuiConfig.defs = [
     onChange: Scene.update,
   },
 
-  {
-    name: "Points/iteration",
-    param: "ppi",
-    range: [10, 100, 5],
-    onChange: Sim.restartNgon,
-  },
+  // {
+  //   name: "Speed",
+  //   param: "speed",
+  //   range: [500, 10000, 500],
+  //   onChange: Sim.restartNgon,
+  // },
   
   /***************************************************
    *             Scene folder
