@@ -46,6 +46,7 @@ class Params {
     this.pause = false;
     this.rotate = false;
     this.speed = 1000;
+    this.ppi = 100;
     this.dotSize = 1;
     // this.dotColor = new THREE.Color("#fffff");
     // ====================================================================

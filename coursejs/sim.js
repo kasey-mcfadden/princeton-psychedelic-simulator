@@ -7,8 +7,8 @@ var prev_point;
 var backwards = false;
 var first = true;
 var prev_vert_index;
-const MAX_ITERATIONS = 10000;
-var ppi = 100; // points per iteration
+var MAX_ITERATIONS;
+var ppi = SceneParams.ppi; // points per iteration
 const offset = 0;
 
 Sim.init = function() {
@@ -22,6 +22,7 @@ Sim.init = function() {
 // then rendered to the screen.
 // For more info, see animate() in render.js.
 Sim.simulate = function() {
+  MAX_ITERATIONS = 10000 + 3000 * (SceneParams.nverts - 1) + 5000 * (SceneParams.sideLength - 100);
   if (!SceneParams.pause) {
     if (Scene.scene.children.length < MAX_ITERATIONS + 1.5 * ppi) {
       if (Scene.scene.children.length == 0) {
@@ -37,7 +38,7 @@ Sim.simulate = function() {
 // perform the chaos game algorithm
 Sim.chaos = function() {
 
-  for (let i = 0; i < ppi; i++) {
+  for (let i = 0; i < ppi * (SceneParams.nverts - 2); i++) {
 
     if (backwards == false) { // fade in
       let point = ngon.getRandomPoint();
@@ -70,6 +71,7 @@ Sim.chaos = function() {
       Scene.scene.remove(Scene.scene.children[0]);
     }
   }
+  // ngon.spin();
     
   //   // for testing: place a dot at each vertex
   // for (let v of ngon.geometry.vertices) {

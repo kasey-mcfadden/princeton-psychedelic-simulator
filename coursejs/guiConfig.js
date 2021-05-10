@@ -123,12 +123,12 @@ GuiConfig.defs = [
     onChange: Scene.update,
   },
 
-  // {
-  //   name: "Speed",
-  //   param: "speed",
-  //   range: [500, 10000, 500],
-  //   onChange: Sim.restartNgon,
-  // },
+  {
+    name: "Points/iteration",
+    param: "ppi",
+    range: [10, 100, 5],
+    onChange: Sim.restartNgon,
+  },
   
   /***************************************************
    *             Scene folder
