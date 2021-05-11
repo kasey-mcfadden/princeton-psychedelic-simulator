@@ -86,36 +86,10 @@ Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVertex) {
     let goodV = false;
     let index;
     while (!goodV) {
-      index = Math.round(Math.random() * (this.nverts - 1));
-      if (index != restrictedVertex) {
-        goodV = true;
-      }
+        index = Math.round(Math.random() * (this.nverts - 1));
+        if (index != restrictedVertex) {
+          goodV = true;
+        }
     }
     return index;
 }
-
-Ngon.prototype.spin = function() {
-    let SCALE = 1.05;
-    let verts = [];
-
-    for (let i = 0; i < this.nverts; i++) {
-        let v = this.vertices[i].clone();
-        verts.push(v);
-    }
-    verts.push(this.vertices[0]);
-  
-    let adj = [];
-
-    for (let i = 0; i < this.nverts; i++) {
-        let vAvB = new THREE.Vector3().subVectors(verts[i], verts[i + 1]).multiplyScalar(SCALE);
-        adj.push(vAvB);
-    }
-  
-    for (let i = 0; i < this.nverts; i++) {
-        verts[i] = verts[i].add(adj[i]);
-    }
-  
-    for (let i = 0; i < this.nverts; i++) {
-        this.vertices[i] = verts[i];
-    }
-};
