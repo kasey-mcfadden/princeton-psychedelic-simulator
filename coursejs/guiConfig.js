@@ -56,7 +56,7 @@ GuiConfig.defs = [
     folderName: "Chaos Algorithm",
     name: "R Parameter",
     param: "r",
-    range: [0, 1, 0.1],
+    range: [0, 1, 0.05],
     onChange: Sim.restartNgon,
   },
   {
@@ -69,6 +69,12 @@ GuiConfig.defs = [
     /***************************************************
    *             Simulation Properties folder
    ***************************************************/
+  {
+    folderName: "Simulation Properties",
+    name: "iterations",
+    param: "iterations",
+    onChange: Sim.update,
+  },
   {
     folderName: "Simulation Properties",
     name: "Fade",
@@ -141,6 +147,10 @@ GuiConfig.defs = [
       name: "Restore defaults",
       param: "restoreDefaults",
       onClick: Params.restoreDefaults,
+    },
+    {
+      name: "Restart",
+      onClick: Sim.restartNgon,
     }
 
 

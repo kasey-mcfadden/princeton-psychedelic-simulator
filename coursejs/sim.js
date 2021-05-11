@@ -7,9 +7,11 @@ var prev_point;
 var backwards = false;
 var first = true;
 var prev_vert_index;
-const MAX_ITERATIONS = 10000;
+var MAX_ITERATIONS = SceneParams.iterations;
 var ppi = 100; // points per iteration
 const offset = 0;
+// var points = [];
+// var spun = false;
 
 Sim.init = function() {
   ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
@@ -36,7 +38,9 @@ Sim.simulate = function() {
 
 Sim.chaos = function() {
   for (let i = 0; i < ppi; i++) {
+    // if (!SceneParams.fade) {
 
+    // }
     if (backwards == false) { // fade in
       let point = ngon.getRandomPoint();
       let index = ngon.getRandomVertexIndex(SceneParams.restrict, prev_vert_index);
@@ -46,6 +50,7 @@ Sim.chaos = function() {
         prev_vert_index = index;
         return;
       }
+      // console.log(prev_vert_index, index);
 
       let v = ngon.vertices[index].clone();
 
@@ -68,9 +73,16 @@ Sim.chaos = function() {
       Scene.scene.remove(Scene.scene.children[0]);
     }
   }
-  if (SceneParams.spin) {
+  if (SceneParams.spin && !backwards && Scene.scene.children.length > ppi * 70) {
     ngon.spin();
-  }
+    // if (!spun) {
+    //   ngon.spin();
+    //   spun = true;
+    // } else {
+    //   ngon.reverseSpin();
+    //   spun = false;
+    // }
+  } // todo: reverse spin!
   //   // for testing: place a dot at each vertex
   // for (let v of ngon.geometry.vertices) {
   //   var dotGeometry = new THREE.Geometry();
@@ -83,7 +95,7 @@ Sim.chaos = function() {
 
 Sim.spin = function() {
   if (!SceneParams.spin) {
-    Sim.restartNgon;
+    Sim.restartNgon();
   }
 }
 
@@ -109,4 +121,5 @@ Sim.tile = function() {
 Sim.update = function() {
   // Sim.placeObject(SceneParams.object);
   // Sim.pinCloth(SceneParams.pinned);
+  MAX_ITERATIONS = SceneParams.iterations;
 }
