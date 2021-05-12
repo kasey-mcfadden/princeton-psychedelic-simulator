@@ -9,12 +9,13 @@ var first = true;
 var prev_vert_index;
 var MAX_ITERATIONS = SceneParams.iterations;
 var ppi = 100; // points per iteration
-const offset = 0;
+var x_offset = 0;
+var y_offset = 0;
 // var points = [];
 // var spun = false;
 
 Sim.init = function() {
-  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, x_offset, y_offset);
   Sim.update();
 }
 
@@ -70,7 +71,7 @@ Sim.chaos = function() {
       prev_vert_index = index
 
     } else if (Scene.scene.children.length > 0){ // fade out
-      Scene.scene.remove(Scene.scene.children[0]);
+      Scene.scene.remove(Scene.scene.children[Scene.scene.children.length - 1]);
     }
   }
   if (SceneParams.spin && !backwards && Scene.scene.children.length > ppi * 70) {
@@ -109,7 +110,7 @@ Sim.restartNgon = function() {
     Scene.scene.remove(Scene.scene.children[0]); 
   }
   // recreate the ngon data structure
-  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, offset);
+  ngon = new Ngon(SceneParams.nverts, SceneParams.sideLength, x_offset, y_offset);
   Scene.ngon.vertices = ngon.vertices;
 }
 
