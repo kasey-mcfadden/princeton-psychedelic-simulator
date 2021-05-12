@@ -142,7 +142,6 @@ GuiConfig.defs = [
       param: "animation",
       dropdownOptions: GuiConfig.dropdownOptions.animation,
       defaultOption: GuiConfig.dropdownOptions.animation[1],
-      onChange: Sim.restartNgon,
     },
     {
       name: "tile",
