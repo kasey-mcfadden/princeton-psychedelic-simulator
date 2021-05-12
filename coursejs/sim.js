@@ -29,6 +29,9 @@ Sim.simulate = function() {
         backwards = false;
       } else if (SceneParams.fade && Scene.scene.children.length >= MAX_ITERATIONS) {
         backwards = true;
+        for (let i = 0; i < ngon.vertices.length; i++) {
+          ngon.vertices[i] = ngon.origVerts[i].clone();
+        }
       }
       Sim.chaos();
     }
@@ -67,10 +70,10 @@ Sim.chaos = function() {
       Scene.scene.add(dot);
 
       prev_point = next;
-      prev_vert_index = index
+      prev_vert_index = index;
 
     } else if (Scene.scene.children.length > 0){ // fade out
-      Scene.scene.remove(Scene.scene.children[0]);
+      Scene.scene.remove(Scene.scene.children[Scene.scene.children.length - 1]);
     }
   }
   if (SceneParams.spin && !backwards && Scene.scene.children.length > ppi * 70) {

@@ -14,11 +14,13 @@ function Ngon(nverts, sideLength, offset) {
 
     let angle = 2 * Math.PI / nverts;
     var geometry = new THREE.Geometry();
+    this.origVerts = [];
     for (let i = 0; i < nverts; i++) {
         let x = this.height / 2 * Math.sin(i * angle) + offset;
         let y = this.height / 2 * Math.cos(i * angle) + offset;
         let v = new THREE.Vector3(x, y, 0);
         geometry.vertices.push(v);
+        this.origVerts.push(v.clone());
     }
 
     this.vertices = geometry.vertices;
