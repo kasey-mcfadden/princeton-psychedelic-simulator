@@ -107,7 +107,13 @@ GuiConfig.defs = [
     type: "color",
     onChange: Scene.update,
   },
-
+  {
+    // folderName: "Simulation Properties",
+    name: "Dot color",
+    param: "dotColor",
+    type: "color",
+    onChange: Sim.restartNgon,
+  },
   // {
   //   name: "Speed",
   //   param: "speed",

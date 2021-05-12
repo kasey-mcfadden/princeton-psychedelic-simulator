@@ -52,6 +52,8 @@ class Params {
     this.bounce = false;
     this.animation = "none";
     this.iterations = 10000;
+    this.dotColor = 0xffffff;
+
     // this.dotColor = new THREE.Color("#fffff");
     // ====================================================================
     //            Properties of forces and interactions
@@ -97,6 +99,7 @@ class Params {
     //              Rendering properties of the scene
     // ====================================================================
     this.backgroundColor = 0x00000;
+  
     // this.wireframe = true;  // should meshes render as wireframes?
     // this.rotate = false;    // Should the camera auto-rotate?
 
