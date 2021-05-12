@@ -114,6 +114,12 @@ Sim.restartNgon = function() {
   Scene.ngon.vertices = ngon.vertices;
 }
 
+Sim.changeColor = function() {
+  for (let child of Scene.scene.children) {
+    child.color = SceneParams.dotColor;
+  }
+}
+
 Sim.tile = function() {
   SceneParams.nverts = 4;
 }
