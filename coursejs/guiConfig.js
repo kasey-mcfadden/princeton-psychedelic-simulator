@@ -107,7 +107,7 @@ GuiConfig.defs = [
   //   onChange: Sim.restartNgon,
   // },
 
-    {
+  {
     // folderName: "Simulation Properties",
     name: "Background",
     param: "backgroundColor",
@@ -145,7 +145,7 @@ GuiConfig.defs = [
       defaultOption: GuiConfig.dropdownOptions.animation[1],
     },
     {
-      name: "tile",
+      name: "Tile Effect",
       param: "tile",
       onClick: Sim.tile,
     },

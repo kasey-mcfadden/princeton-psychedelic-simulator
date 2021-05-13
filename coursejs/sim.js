@@ -97,6 +97,76 @@ Sim.chaos = function() {
   // }
 };
 
+Sim.tile = function() {
+  const SECONDS = 50;
+
+  for (i = 0; i < SECONDS; i++) {
+    // create many shapes
+    let ngons = [];
+    let offDist = 2 * ngon.height;
+    let offsets = [
+      [-3 * offDist, -offDist],
+      [-2 * offDist, -offDist],
+      [-offDist, -offDist],
+      [0, -offDist],
+      [offDist, -offDist],
+      [2 * offDist, -offDist],
+      [3 * offDist, -offDist],
+      [-3 * offDist, 0],
+      [-2 * offDist, 0],
+      [-offDist, 0],
+      [offDist, 0],
+      [2 * offDist, 0],
+      [3 * offDist, 0],
+      [-3 * offDist, offDist],
+      [-2 * offDist, offDist],
+      [-offDist, offDist],
+      [0, offDist],
+      [offDist, offDist],
+      [2 * offDist, offDist],
+      [3 * offDist, offDist],
+    ]
+
+    for (let offset of offsets) {
+      n = ngon.copyWithOffset(offset[0], offset[1]);
+      ngons.push(n);
+    }
+
+    for (let n of ngons) {
+      for (let i = 0; i < ppi; i++) {
+        if (backwards == false) { // fade in
+          let point = n.getRandomPoint();
+          let index = n.getRandomVertexIndex(SceneParams.restrict, prev_vert_index);
+
+          if (prev_point === undefined || prev_vert_index === undefined) {
+            prev_point = point;
+            prev_vert_index = index;
+            return;
+          }
+
+          let v = n.vertices[index].clone();
+
+          // get the next point (some fraction r of the distance between it and a polygon vertex picked at random)
+          let next = new THREE.Vector3().subVectors(v, prev_point);
+          next.multiplyScalar(SceneParams.r);
+      
+          var dotGeometry = new THREE.Geometry();
+          dotGeometry.vertices.push(next);
+          var dotMaterial = new THREE.PointsMaterial( { size: SceneParams.dotSize, sizeAttenuation: false, color: SceneParams.dotColor} );
+          var dot = new THREE.Points( dotGeometry, dotMaterial );
+          Scene.scene.add(dot);
+
+          prev_point = next;
+          prev_vert_index = index;
+
+        } else if (Scene.scene.children.length > 0){ // fade out
+          Scene.scene.remove(Scene.scene.children[Scene.scene.children.length - 1]);
+        }
+      }
+    }
+  }
+};
+
 Sim.spin = function() {
   if (!SceneParams.spin) {
     Sim.restartNgon();
@@ -121,10 +191,6 @@ Sim.changeColor = function() {
   for (let child of Scene.scene.children) {
     child.color = SceneParams.dotColor;
   }
-}
-
-Sim.tile = function() {
-  SceneParams.nverts = 4;
 }
 
 // Update the scene to reflect changes made in the GUI.

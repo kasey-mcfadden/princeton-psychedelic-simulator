@@ -26,6 +26,11 @@ function Ngon(nverts, sideLength, x_offset, y_offset) {
     this.vertices = geometry.vertices;
 };
 
+Ngon.prototype.copyWithOffset = function(x_offset, y_offset) {
+    let copy = new Ngon(this.nverts, this.sideLength, x_offset, y_offset);
+    return copy;
+}
+
 function random() {
     let sum_under_one = false;
     let a;
