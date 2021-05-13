@@ -43,7 +43,6 @@ function random() {
     return [a, b];
 }
 
-// FIXME: generalize to ngon!!
 // reference: https://mathworld.wolfram.com/TrianglePointPicking.html
 Ngon.prototype.getRandomPoint = function() {
     let v0 = ngon.vertices[0];
