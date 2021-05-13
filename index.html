@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>COS426 Final &mdash; Chaos Game</title>
+		<title>Princeton Psychedelic Simulator</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
@@ -17,11 +17,30 @@
 			}
 
 			#info {
-        font-size: 24px;
+        		font-size: 24px;
 				position: absolute;
 				padding: 10px;
 				width: 100%;
 				text-align: center;
+			}
+
+			#blurb {
+        		font-size: 18px;
+				position: absolute;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 40px;
+				margin-top:8rem;
+				width: 100%;
+				text-align: center;
+			}
+
+			#descrip {
+				position:absolute;
+				font-size:16px;
+				padding:2rem;
+				margin-left:3rem;
+				margin-right:3rem;
 			}
 
 			#corner {
@@ -56,14 +75,32 @@
 		<script src="libjs/CCapture.all.min.js"></script>
 
 
-    <div id="info">COS426 Final &mdash; Chaos Game<br>
+    <div id="info">Princeton Psychedelic Simulator<br>
 	  <div>
 	  	<p><a href='chaos.html'>Interactive Editor</a></p>
 	  </div>
-	  	<div>
-	  	<p><a href='results.html'>Gallery</a></p>
-	  </div>
-			<!--<a onclick="Sim.restartCloth();">Restart</a>-->
+		<div>
+	  		<p><a href='results.html'>Gallery</a></p>
 		</div>
+	</div>
+			<!--<a onclick="Sim.restartCloth();">Restart</a>-->
+	</div>
+	<div id="blurb">
+		<div>
+			A project by Isabel Zaller and Kasey McFadden in fulfillment of the <a href='https://www.cs.princeton.edu/courses/archive/spring21/cos426/'>COS426</a> final project.
+		</div>
+	</div>
+	<div id="descrip">
+		<video autoplay controls loop>
+		<source src="results/rave.webm" type="video/webm">
+		</video>
+		</div>
+	<div id="descrip">
+		Our project aims to create a psychedelic-like experience for our users. 
+		Essentially, we want to build something really interesting looking. 
+		Using Three.js, we intend to generate fractals and animate their motion. 
+		We want to capture the attention of our users and inspire them to think creatively. 
+		Working at the intersection of computer science and the natural art of fractal patterns, we hope to inspire others to think of their CS skills as not just applicable to tech, but as creative tools across all fields.
+	</div>
 	</body>
 </html>
