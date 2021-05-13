@@ -48,6 +48,13 @@ GuiConfig.defs = [
     range: [1, 10, 1],
     onChange: Sim.restartNgon,
   },
+  {
+    folderName: "Polygon Properties",
+    name: "Dot color",
+    param: "dotColor",
+    type: "color",
+    onChange: Sim.changeColor,
+  },
 
    /***************************************************
    *             Chaos Algorithm folder
@@ -136,7 +143,6 @@ GuiConfig.defs = [
       param: "animation",
       dropdownOptions: GuiConfig.dropdownOptions.animation,
       defaultOption: GuiConfig.dropdownOptions.animation[1],
-      onChange: Sim.restartNgon,
     },
     {
       name: "tile",
