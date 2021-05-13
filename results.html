@@ -1,0 +1,215 @@
+<head>
+    <title>Sample Results</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="top">
+<div class="main_div">
+
+<h1> <div class=assignment>Princeton Psychedelic Simulator</div> Gallery &mdash; get inspired!</h1>
+<h2>Switch to: <a href='chaos.html'>Interactive Editor</a></h2>
+<h2>Switch to: <a href='index.html'>Home</a></h2>
+
+<div class='selectable'>
+<p><hr><p><h2>Table of Contents</h2><p><hr><p>
+
+<ul>
+<li><a href='#Event+Handler'>Event listeners</a></li>
+<li><a href='#Cloth'>Cloth</a></li>
+<li><a href='#Constraints'>Constraints</a></li>
+<li><a href='#Gravity'>Gravity</a></li>
+<li><a href='#Verlet+integration'>Verlet integration</a></li>
+<li><a href='#Floor+collision'>Floor collision</a></li>
+<li><a href='#Sphere+collision'>Sphere collision</a></li>
+<li><a href='#Box+collision'>Box collision</a></li>
+<li><a href='#Extensions'>Extensions</a></li>
+<li><a href='#Art+contest'>Art Contest</a></li>
+</ul></div>
+
+<p><hr><p><a name='Event+Listeners'></a><h2>Event Listeners</h2><p><hr><p>
+Briefly describe your implementation of adding event listeners to the scene.
+In particular, list all of the keys that you have bound to an action, and briefly describe the action, as below:
+<ul>
+  <li> "ArrowUp": Move the looked-at particle upwards.
+  <li> "ArrowDown": Move the looked-at particle downwards.
+  <li> "ArrowLeft": Move the looked-at particle left.
+  <li> "ArrowRight": Move the looked-at particle right.
+</ul>
+
+I added a keydown event handler in Cloth. In the return function, I check
+if the key pressed is an arrow key. If not, do nothing. Otherwise, I get 
+the looked at particle. If that particle is not null, I calculate the 
+offset by multiplying the correct key's vector by the scale. Finally, I
+add this offset to the particle's position.
+
+<p><hr><p><a name='Cloth'></a><h2>Cloth</h2><p><hr><p>
+
+I added the code in for structural, shear, and bending constraints using the information provided on the
+assignment page. For structural constraints, I iterate through each particle and add a constraint for the 
+particle to the right and beneath the looked at particle. For shear, I iterate through each particle and 
+add a constraint between the looked at particle and the one below and to the right and the below 
+particle and the particle to the right of the looked at particle. For bending constraints, I iterate through
+each particle and add a constraint between the looked at particle and the particle two places away to both the 
+right and below particles.
+
+<p><hr><p><a name='Constraints'></a><h2>Constraints</h2><p><hr><p>
+I first completed the enforce() function. I created a vector vAB which is the vector
+from p1 to p1. I created the correction vector vCORR  using the equation 
+from the assignment specifications, divided it by 2, and then added that
+to p2 and subtracted it from p1. Then, in the enforceConstraints() function, 
+I looped through each of the constraints and called enforce().
+
+<p><hr><p><a name='Gravity'></a><h2>Gravity</h2><p><hr><p>
+I added the force of gravity in the addForce() method. Then I completed
+applyGravity(). I created a vector for the downward acceleration due to 
+gravity. For each of the particles, I multiplied a copy of the 
+acceleration vector by the particle's mass and added the force to that
+particle.
+
+<p><hr><p><a name='Verlet+integration'></a><h2>Verlet integration</h2><p><hr><p>
+This feature involved filling in code for both the integrate() and 
+update() function in particle and cloth, respectively.
+
+Integrate:
+I first saved a copy of the particle's current position in a variable 
+called current. I then created three vectors representing x(t), v(t)dt, 
+and a(t). x(t) is simply the particle's position; I used the approximation
+from the assignment specs to compute v(t)dt; and a(t) is equal to force
+divided by mass. I used these three parameters, dt, and the variable DAMPING
+to update the particle's position based on the equation from the assignment
+specs. Finally, I set the particle's previous position to the variable 
+current and reset the particle's net force to zero.
+
+Update: 
+I looped through each particle and called integrate with the passed dt.
+
+<p><b>Deliverable <a href="/index.html?wireframe=false">(click me)</a></b>: Please include an image of your cloth (not wireframe) with "Corners" pinned and no objects in the scene in its
+final resting state, to demonstrate that your cloth updates its particle positions properly over time.
+
+<!-- Sample code for video embedding -->
+<!-- http://localhost:8000/index.html?gravity=false&wave=true&waveFreq=3&wireframe=false&clothColor=11170857&showClothTexture=true -->
+
+<br><br><img src='results/vertlet.png'>
+
+<p><hr><p><a name='Floor+collision'></a><h2>Floor collision</h2><p><hr><p>
+handleFloorCollision: I set the variable GROUND to the y coordinate of the floor position. If
+the particle's y coordinate is less than GROUND plus EPS, I set the y
+coordinate to GROUND + EPS. 
+
+handleCollisions: I add the line calling handleFloorCollision for each
+particle.
+
+
+<p><b>Deliverable <a href="/index.html?pinned=OneEdge&wireframe=false">(click me)</a></b>: Please include an image of your cloth (not wireframe) with "OneEdge" pinned and no objects in the scene in its
+final resting state, to demonstrate that your cloth does not clip through the floor.
+
+<br><br><img src='results/floor.png'>
+
+<p><hr><p><a name='Sphere+collision'></a><h2>Sphere collision</h2><p><hr><p>
+handleSphereCollision: I begin by initializing 2 vectors to zero. One vector
+stores the position without friction and one stores the position with
+friction. If the particle is not inside the sphere, I return from the
+function and do nothing. Otherwise, I set the position without friction
+vector to the projection of the particle's current position on the sphere.
+Then, if the particle was outside of the sphere in the last timestep, I
+account for the force of friction by updating the position with friction
+vector. Inside of this if statement, I scale the position with and without
+friction by the friction variable and 1 - friction. Finally, I set the
+particle's position to the sum of the friction and no friction position
+vectors.
+
+handleCollisions: I add the line calling handleSphereCollision for each
+particle.
+
+<p><b>Deliverable <a href="/index.html?fabricLength=700&pinned=OneEdge&object=Sphere&wireframe=false">(click me)</a></b>: Please include an image of your cloth (not wireframe) with "OneEdge" pinned and the sphere object in the scene
+in a resting state. Increase the size of the cloth to 700 so that it remains draped over the sphere.
+
+<br><br><img src='results/sphere.png'>
+
+<p><hr><p><a name='Box+collision'></a><h2>Box collision</h2><p><hr><p>
+handleBoxCollision: First, I check the if the point is inside the bounding
+box. If not, I return. I then create two vectors describing the distances
+from the particle to both the miniumum and the maximum of the bounding box.
+I create a variable, min, which is the minimum of the x, y, and z components
+of these two vectors. I initialize position without friction to the particle's
+current position. Then, depending on the value of min, I update the appropriate
+field in the position no friction vector to take the particle outside the box.
+If the particle was not in the box in the previous timestep, I account
+for friction by setting the position with friction to the previous position
+and scaling the positions with and without friction by the variable friction
+and 1 - friction, respectively. Finally, I set the
+particle's position to the sum of the friction and no friction position
+vectors.
+
+handleCollisions: I add the line calling handleBoxCollision for each
+particle.
+
+<p><b>Deliverable <a href="/index.html?fabricLength=700&pinned=TwoEdges&object=Box&wireframe=false">(click me)</a></b>: Please include an image of your cloth (not wireframe) with "TwoEdges" pinned and the box object in the scene
+in a resting state. Increase the size of the cloth to 700 so that it remains draped over the box.
+
+<br><br><img src='results/box.png'>
+
+<p><hr><p><a name='Extensions'></a><h2>Extensions</h2><p><hr><p>
+Briefly describe any extensions that you chose to complete. Please include images and/or videos as
+necessary so that we can see what you've done!
+
+<p><hr><p><h3>Event Handlers Revisited</h3><p><hr><p>
+I used an event handler to track the mouse movement. For each particle the
+mouse moves over, I add the a random number between -1 and 1 and then multiplied by a constant scale to the y
+component of the particle position.
+<p><b>Deliverable <a href="/index.html?integrate=false&gravity=false">(click me)</a></b>
+
+<video autoplay controls loop>
+  <source src="results/mouse.webm" type="video/webm">
+</video>
+
+<p><hr><p><h3>Changing Winds</h3><p><hr><p>
+I created a vector, direction, whose components are wave functions. I use
+this vector to generate the wind force in the applyWind function.
+
+<p><b>Deliverable <a href="/index.html?wireframe=false&wind=true">(click me)</a></b>
+
+<video autoplay controls loop>
+  <source src="results/wind.webm" type="video/webm">
+</video>
+
+<p><hr><p><h3>Rain</h3><p><hr><p>
+I begin by defining 8 2D vectors corresponding to the 8 nearby particles around each particle.
+Then, at the prescribed rate, I choose a random coordinate and subtract the variable strength
+from the y coordinate of that particle. Then, for each of the nearby particles (within bounds)
+I subtract half of the strength variable from the y component of the particle.
+<p><b>Deliverable <a href="/index.html?pinned=FourEdges&rain=true">(click me)</a></b>
+
+<video autoplay controls loop>
+  <source src="results/rain.webm" type="video/webm">
+</video>
+
+<p><hr><p><h3>Self Intersections</h3><p><hr><p>
+I have nested for loops iterating through each pair of particles in the cloth.
+If the distance between the two particles is less than the specified rest
+distance, I create a correction vector, which is the normalized distance 
+vector multiplied by the rest distance. I divide this vector in half and
+ended up needing to add a small correction factor to the result. Finally, 
+I apply the resulting vector to the positions of both particles to shift
+them away from each other.
+<p><b>Deliverable <a href="/index.html?fabricLength=800&pinned=OneEdge&avoidClothSelfIntersection=true">(click me)</a></b>
+<br><br><img src='results/self.png'>
+
+<p><hr><p><a name='Art+contest'></a><h2>Art contest</h2><p><hr><p>
+I used my mouse hovering event handler, cloth size 1000, and shear constraints only.
+
+I really like the movement -- it sort of reminds me of seeing the underbelly of a bird and how the feathers move to reveal different colors.
+I also really like how the end result for the cloth looks almost sculptural.<p>
+
+<video autoplay controls loop>
+  <source src="results/cloth_art.webm" type="video/webm">
+</video>
+
+<p><b>Deliverable <a href="/index.html?fabricLength=1000&structuralSprings=false&shearSprings=false&pinned=FourEdges&gravity=false&wireframe=false&rotate=true&clothColor=23727&clothSpecular=16711724&showClothTexture=true">(click me)</a></b>
+
+
+</div>
+</div>
+</body>
+</html>
