@@ -82,16 +82,20 @@ Ngon.prototype.spin = function() {
 };
 
 
-Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVertex) {
-    if (!restrict) {
+Ngon.prototype.getRandomVertexIndex = function(restrict, restrictedVerts) {
+    if (restrict === "none" || restrictedVerts == []) {
         return Math.round(Math.random() * (this.nverts - 1));
     }
     let goodV = false;
     let index;
     while (!goodV) {
         index = Math.round(Math.random() * (this.nverts - 1));
-        if (index != restrictedVertex) {
-          goodV = true;
+        for (let rv of restrictedVerts) {
+            if (index != rv) {
+                goodV = true;
+            } else {
+                goodV = false;
+            }
         }
     }
     return index;
