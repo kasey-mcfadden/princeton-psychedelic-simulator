@@ -104,28 +104,16 @@ Sim.tile = function() {
     // create many shapes
     let ngons = [];
     let offDist = 2 * ngon.height;
-    let offsets = [
-      [-3 * offDist, -offDist],
-      [-2 * offDist, -offDist],
-      [-offDist, -offDist],
-      [0, -offDist],
-      [offDist, -offDist],
-      [2 * offDist, -offDist],
-      [3 * offDist, -offDist],
-      [-3 * offDist, 0],
-      [-2 * offDist, 0],
-      [-offDist, 0],
-      [offDist, 0],
-      [2 * offDist, 0],
-      [3 * offDist, 0],
-      [-3 * offDist, offDist],
-      [-2 * offDist, offDist],
-      [-offDist, offDist],
-      [0, offDist],
-      [offDist, offDist],
-      [2 * offDist, offDist],
-      [3 * offDist, offDist],
-    ]
+    let offsets = [];
+    
+    for (let q = 0; q < 4; q++) {
+      offsets.push([-q * offDist, - offDist]);
+      offsets.push([q * offDist, - offDist]);
+      offsets.push([-q * offDist, 0]);
+      offsets.push([q * offDist, 0]);
+      offsets.push([-q * offDist, offDist]);
+      offsets.push([q * offDist, offDist]);
+    }
 
     for (let offset of offsets) {
       n = ngon.copyWithOffset(offset[0], offset[1]);
