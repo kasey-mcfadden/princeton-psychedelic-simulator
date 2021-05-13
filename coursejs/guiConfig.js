@@ -11,6 +11,13 @@ GuiConfig.dropdownOptions.animation = [
   "rave",
 ];
 
+GuiConfig.dropdownOptions.restrict = [
+  "none",
+  "1",
+  "2",
+  "3",
+];
+
 // Each entry of GuiConfig.defs will have one Gui element created for it.
 /* Parameters are as follows:
     - folderName: what folder to place this entry in
@@ -70,6 +77,8 @@ GuiConfig.defs = [
     folderName: "Chaos Algorithm",
     name: "Restrict Vertices",
     param: "restrict",
+    dropdownOptions: GuiConfig.dropdownOptions.restrict,
+    defaultOption: GuiConfig.dropdownOptions.restrict[1],
     onChange: Sim.restartNgon,
   },
 
@@ -99,28 +108,13 @@ GuiConfig.defs = [
     param: "spin",
     onChange: Sim.spin,
   },
-  // {
-  //   // folderName: "Simulation Properties",
-  //   name: "Dot Color",
-  //   param: "dotColor",
-  //   // type: "color",
-  //   onChange: Sim.restartNgon,
-  // },
-
-  {
+    {
     // folderName: "Simulation Properties",
     name: "Background",
     param: "backgroundColor",
     type: "color",
     onChange: Scene.update,
   },
-
-  // {
-  //   name: "Speed",
-  //   param: "speed",
-  //   range: [500, 10000, 500],
-  //   onChange: Sim.restartNgon,
-  // },
   
   /***************************************************
    *             Scene folder
